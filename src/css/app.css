@@ -1,93 +1,96 @@
-/* Your app custom styles here *//* ===========================================
-   PROFESSIONAL APP COLOR PALETTE
-   Sweet Dynamic Colors for Modern UIs
-   =========================================== */
+/* Your app custom styles here */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 :root {
   /* Success Colors - Sweet Greens & Nature Tones */
-  --success-emerald: #10B981;
-  --success-mint: #06D6A0;
-  --success-lime: #22C55E;
-  --success-light: #34D399;
+  --success-emerald: #10b981;
+  --success-mint: #06d6a0;
+  --success-lime: #22c55e;
+  --success-light: #34d399;
   --success-dark: #059669;
-  --success-bg: #D1FAE5;
-  --success-border: #A7F3D0;
-  --success-forest: #065F46;
-  --success-sage: #84CC16;
-  --success-spring: #00F5A0;
-  --success-jade: #00A96E;
+  --success-bg: #d1fae5;
+  --success-border: #a7f3d0;
+  --success-forest: #065f46;
+  --success-sage: #84cc16;
+  --success-spring: #00f5a0;
+  --success-jade: #00a96e;
 
   /* Warning Colors - Sweet Oranges & Warm Tones */
-  --warning-amber: #F59E0B;
-  --warning-coral: #FF6B6B;
-  --warning-peach: #FFB347;
-  --warning-orange: #F97316;
-  --warning-golden: #FCD34D;
-  --warning-bg: #FEF3C7;
-  --warning-border: #FDE68A;
-  --warning-sunset: #FF8A65;
-  --warning-papaya: #FF9500;
-  --warning-honey: #FFB300;
-  --warning-tangerine: #FF7043;
+  --warning-amber: #f59e0b;
+  --warning-coral: #ff6b6b;
+  --warning-peach: #ffb347;
+  --warning-orange: #f97316;
+  --warning-golden: #fcd34d;
+  --warning-bg: #fef3c7;
+  --warning-border: #fde68a;
+  --warning-sunset: #ff8a65;
+  --warning-papaya: #ff9500;
+  --warning-honey: #ffb300;
+  --warning-tangerine: #ff7043;
 
   /* Error Colors - Sweet Reds & Roses */
-  --error-red: #EF4444;
-  --error-crimson: #DC2626;
-  --error-rose: #F43F5E;
-  --error-cherry: #E11D48;
-  --error-coral: #FF5722;
-  --error-bg: #FEE2E2;
-  --error-border: #FECACA;
-  --error-wine: #BE185D;
-  --error-ruby: #C53030;
+  --error-red: #ef4444;
+  --error-crimson: #dc2626;
+  --error-rose: #f43f5e;
+  --error-cherry: #e11d48;
+  --error-coral: #ff5722;
+  --error-bg: #fee2e2;
+  --error-border: #fecaca;
+  --error-wine: #be185d;
+  --error-ruby: #c53030;
 
   /* Primary Colors - Professional Blues & Teals */
-  --primary-blue: #3B82F6;
-  --primary-dark: #1E40AF;
-  --primary-light: #DBEAFE;
-  --primary-ocean: #0EA5E9;
-  --primary-sky: #06B6D4;
-  --primary-navy: #1E293B;
-  --primary-azure: #0284C7;
-  --primary-electric: #2563EB;
-  --primary-teal: #14B8A6;
-  --primary-cyan: #06B6D4;
+  --primary-blue: #3b82f6;
+  --primary-dark: #1e40af;
+  --primary-light: #dbeafe;
+  --primary-ocean: #0ea5e9;
+  --primary-sky: #06b6d4;
+  --primary-navy: #1e293b;
+  --primary-azure: #0284c7;
+  --primary-electric: #2563eb;
+  --primary-teal: #14b8a6;
+  --primary-cyan: #06b6d4;
 
   /* Accent Colors - Sweet Purples & Magentas */
-  --accent-indigo: #6366F1;
-  --accent-purple: #8B5CF6;
-  --accent-violet: #7C3AED;
-  --accent-lavender: #A78BFA;
-  --accent-plum: #9333EA;
-  --accent-orchid: #C084FC;
-  --accent-magenta: #D946EF;
-  --accent-pink: #EC4899;
-  --accent-fuschia: #E879F9;
-  --accent-amethyst: #6D28D9;
+  --accent-indigo: #6366f1;
+  --accent-purple: #8b5cf6;
+  --accent-violet: #7c3aed;
+  --accent-lavender: #a78bfa;
+  --accent-plum: #9333ea;
+  --accent-orchid: #c084fc;
+  --accent-magenta: #d946ef;
+  --accent-pink: #ec4899;
+  --accent-fuschia: #e879f9;
+  --accent-amethyst: #6d28d9;
 
   /* Info Colors - Cool Blues & Cyans */
-  --info-blue: #3B82F6;
-  --info-cyan: #06B6D4;
-  --info-aqua: #22D3EE;
-  --info-ice: #67E8F9;
-  --info-steel: #0F172A;
-  --info-bg: #EFF6FF;
-  --info-border: #BFDBFE;
-  --info-powder: #BAE6FD;
+  --info-blue: #3b82f6;
+  --info-cyan: #06b6d4;
+  --info-aqua: #22d3ee;
+  --info-ice: #67e8f9;
+  --info-steel: #0f172a;
+  --info-bg: #eff6ff;
+  --info-border: #bfdbfe;
+  --info-powder: #bae6fd;
 
   /* Neutral Colors - Professional Grays */
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB;
-  --gray-400: #9CA3AF;
-  --gray-500: #6B7280;
-  --gray-600: #4B5563;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
   --gray-700: #374151;
-  --gray-800: #1F2937;
+  --gray-800: #1f2937;
   --gray-900: #111827;
   --gray-950: #030712;
-  --white: #FFFFFF;
+  --white: #ffffff;
   --black: #000000;
 
   /* Brand Colors - Dynamic & Modern */
@@ -123,22 +126,33 @@
   --glow-pink: 0 0 20px rgba(236, 72, 153, 0.5);
 
   /* Dark Mode Variants */
-  --dark-bg-primary: #0F172A;
-  --dark-bg-secondary: #1E293B;
+  --dark-bg-primary: #0f172a;
+  --dark-bg-secondary: #1e293b;
   --dark-bg-tertiary: #334155;
-  --dark-text-primary: #F8FAFC;
-  --dark-text-secondary: #CBD5E1;
+  --dark-text-primary: #f8fafc;
+  --dark-text-secondary: #cbd5e1;
   --dark-border: #475569;
 }
 
+.animated-polyline {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 1000;
+  animation: dash 100s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 
 .gradient-bg-landing {
   --background: linear-gradient(to bottom right, #0c2a5d, #4c1d95, #312e81);
 }
 
-.mapBlock{
-height:100Vh;
-width: 100%;
+.mapBlock {
+  height: 100vh;
+  width: 100%;
 }
 .gradient-bg-header {
   background: linear-gradient(to right, #2563eb, #7c3aed);
@@ -149,10 +163,18 @@ width: 100%;
 }
 
 /* Custom gradient for route cards */
-.gradient-lme { --background: linear-gradient(to bottom right, #f87171, #ef4444); }
-.gradient-ic { --background: linear-gradient(to bottom right, #2dd4bf, #14b8a6); }
-.gradient-mcl { --background: linear-gradient(to bottom right, #38bdf8, #0ea5e9); }
-.gradient-ae { --background: linear-gradient(to bottom right, #86efac, #4ade80); }
+.gradient-lme {
+  --background: linear-gradient(to bottom right, #f87171, #ef4444);
+}
+.gradient-ic {
+  --background: linear-gradient(to bottom right, #2dd4bf, #14b8a6);
+}
+.gradient-mcl {
+  --background: linear-gradient(to bottom right, #38bdf8, #0ea5e9);
+}
+.gradient-ae {
+  --background: linear-gradient(to bottom right, #86efac, #4ade80);
+}
 
 /* --- Glassmorphism Effect --- */
 .glass-effect {
@@ -204,7 +226,8 @@ width: 100%;
 
 /* --- Animations (from Tailwind) --- */
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(-25%);
     animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
@@ -215,7 +238,8 @@ width: 100%;
 }
 
 @keyframes ping {
-  75%, 100% {
+  75%,
+  100% {
     transform: scale(2);
     opacity: 0;
   }
@@ -223,7 +247,7 @@ width: 100%;
 
 @keyframes pulse {
   50% {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
@@ -233,7 +257,8 @@ width: 100%;
 
 /* --- General Card Styling --- */
 ion-card {
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05) !important;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05),
+    0 4px 6px -4px rgb(0 0 0 / 0.05) !important;
   border-radius: 1.5rem !important; /* 24px */
   margin: 0.5rem 0;
 }
@@ -249,61 +274,59 @@ ion-button.button-big {
 
 .align-vertically {
   display: flex;
-  flex-direction: column;  /* stack items vertically */
-  align-items: center;     /* horizontal alignment */
+  flex-direction: column; /* stack items vertically */
+  align-items: center; /* horizontal alignment */
   justify-content: center; /* vertical alignment */
 }
 
 .align-horizontally {
   display: flex;
-  align-items: center;       /* vertical alignment */
-  justify-content: center;   /* horizontal alignment */
+  align-items: center; /* vertical alignment */
+  justify-content: center; /* horizontal alignment */
 }
 
 .align-horizontally-space {
   display: flex;
-  align-items: center;       /* vertical alignment */
-  justify-content:space-between;
+  align-items: center; /* vertical alignment */
+  justify-content: space-between;
   flex-direction: row;
 }
 
-  #topBlock{
- width:96%;
- /* width:100%; */
- border-radius: 35px;
- height: fit-content;
- background-color: rgb(4, 11, 52);
- position: fixed;
- top: 4%;
- left: 2%;
-/* padding: 2%; */
-color:  rgb(229, 231, 234); 
- z-index: 1000;
- /* display: flex; */
- align-items: center;
+#topBlock {
+  width: 96%;
+  /* width:100%; */
+  border-radius: 35px;
+  height: fit-content;
+  background-color: rgb(4, 11, 52);
+  position: fixed;
+  top: 4%;
+  left: 2%;
+  /* padding: 2%; */
+  color: rgb(229, 231, 234);
+  z-index: 1000;
+  /* display: flex; */
+  align-items: center;
 
- justify-content:center;
- overflow: hidden;
-  }
+  justify-content: center;
+  overflow: hidden;
+}
 
-  .small-block{
-    /* background-color: brown; */
-    /* height: 80px; */
-    /* width:; */
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    flex-direction: column;
+.small-block {
+  /* background-color: brown; */
+  /* height: 80px; */
+  /* width:; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-
-      }
-
- .arrow-box {
+.arrow-box {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  width:100%;
+  width: 100%;
   font-size: 0.8rem;
   padding: 5px;
   background-color: #3498db;
@@ -312,6 +335,6 @@ color:  rgb(229, 231, 234);
   border-bottom-left-radius: 15px;
   font-weight: bold;
   /* clip-path: polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px); */
- 
-   background: rgba(255 255 255 / 0.15);
+
+  background: rgba(255 255 255 / 0.15);
 }

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 // import {UpdateMapView,busStopsMap } from "../js/mqttClient";
 
 import {
@@ -9,9 +15,16 @@ import {
   ZoomControl,
   LayersControl,
   useMap,
+  Polyline,
 } from "react-leaflet";
 import L from "leaflet";
-import { useMqttGps,UpdateMapView,customIcon,bustopIcon,officeIcon} from "../js/mapComponent";
+import {
+  useMqttGps,
+  UpdateMapView,
+  customIcon,
+  bustopIcon,
+  officeIcon,
+} from "../js/mapComponent";
 import "leaflet/dist/leaflet.css";
 import "../css/leaflet-routing-machine.css";
 import { motion } from "framer-motion";
@@ -22,7 +35,6 @@ import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
 // import { useGps } from '../context/globalContext.jsx'; // adjust path
 
-
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl,
@@ -30,14 +42,16 @@ L.Icon.Default.mergeOptions({
   shadowUrl,
 });
 
+// const defaultCurrentLocation = [6.5244, 3.3762]; // Lagos coords
+const defaultCurrentLocation = [6.428334, 3.429]; // Lagos coords
 
-
-const defaultCurrentLocation = [6.5244, 3.3762]; // Lagos coords
-
-const MapComponent = ({ gpsLocation, busStops }) => {  // destructure prop
-  const [currentLocation, setCurrentLocation] = useState(gpsLocation || defaultCurrentLocation);
+const MapComponent = ({ gpsLocation, busStops }) => {
+  // destructure prop
+  const [currentLocation, setCurrentLocation] = useState(
+    gpsLocation || defaultCurrentLocation
+  );
   // const { gpsData } =  useMqttGps();
- const markerRef = useRef(null);
+  const markerRef = useRef(null);
 
   useEffect(() => {
     if (!gpsLocation) return;
@@ -62,10 +76,10 @@ const MapComponent = ({ gpsLocation, busStops }) => {  // destructure prop
 
   const commonAttribution =
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | ';
-    // '&copy; <a href="https://www.stadiamaps.com/">Stadia Maps</a> | ' +
-    // '&copy; <a href="https://www.stamen.com/">Stamen Design</a> | ' +
-    // '&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> | ' +
-    // 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>';
+  // '&copy; <a href="https://www.stadiamaps.com/">Stadia Maps</a> | ' +
+  // '&copy; <a href="https://www.stamen.com/">Stamen Design</a> | ' +
+  // '&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> | ' +
+  // 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>';
 
   // // Update state when GPS data changes
   // useEffect(() => {
@@ -75,7 +89,6 @@ const MapComponent = ({ gpsLocation, busStops }) => {  // destructure prop
   //   setCurrentLocation([Number(gpsData.lat), Number(gpsData.lon)]);
   //   }
   // }, [gpsData]);
-
 
   return (
     <MapContainer
@@ -123,17 +136,29 @@ const MapComponent = ({ gpsLocation, busStops }) => {  // destructure prop
           Current Location: <br /> {currentLocation[0]}, {currentLocation[1]}
         </Popup>
       </Marker>
-        {/* Markers for Bus Stops */}
-            {busStops.map((stop, index) => (
-              <Marker key={index} position={[stop.latitude, stop.longitude]} icon={ index == (busStops.length - 1)? officeIcon:bustopIcon}>
-                <Popup>
-                  {stop.name}
-                </Popup>
-              </Marker>
-            ))}
-
-
-
+      {/* Markers for Bus Stops */}
+      {busStops.map((stop, index) => (
+        <Marker
+          key={index}
+          position={[stop.latitude, stop.longitude]}
+          icon={index == busStops.length - 1 ? officeIcon : bustopIcon}
+        >
+          <Popup>{stop.name}</Popup>
+        </Marker>
+      ))}
+      <Polyline
+        positions={busStops.map((p) => [p.latitude, p.longitude])}
+        color="#EAB308"
+        weight={3}
+        dashArray="5, 10"
+        lineJoin="round"
+        lineCap="round"
+        pathOptions={{
+          weight: 3,
+          dashOffset: "0",
+        }}
+        className="animated-polyline"
+      />
     </MapContainer>
   );
 };

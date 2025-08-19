@@ -1,31 +1,32 @@
-import mqtt from 'mqtt';
+import mqtt from "mqtt";
 // import * as mqtt from "mqtt/dist/mqtt.min.js"; // Sometimes works in CRA/Vite
 
 import React, { useEffect, useState } from "react";
 // MQTT configuration object
+
 const mqttConfig = {
-  brokerUrl: 'wss://obiot.duckdns.org:8084/',
-  username: 'BusTracker',
-  password: 'GoNavTracker#01',
+  brokerUrl: "wss://obiot.duckdns.org:8084/",
+  username: "BusTracker",
+  password: "GoNavTracker#01",
   clientOptions: {
     clientId: `mqttjs_${Math.random().toString(16).substr(2, 8)}`,
     clean: false,
     reconnectPeriod: 5000,
     connectTimeout: 3000,
     rejectUnauthorized: false, // Only for development!
-    reschedulePings: false,    // Disable worker-based ping
-    keepalive: 0              // Disable keepalive worker
-  }
+    reschedulePings: false, // Disable worker-based ping
+    keepalive: 0, // Disable keepalive worker
+  },
 };
 
-  let client = null;
+let client = null;
 
 export const connectToMqtt = () => {
   if (!client) {
     client = mqtt.connect(mqttConfig.brokerUrl, {
       ...mqttConfig.clientOptions,
       username: mqttConfig.username,
-      password: mqttConfig.password
+      password: mqttConfig.password,
     });
 
     client.on("connect", () => console.log("MQTT connected"));
@@ -34,7 +35,6 @@ export const connectToMqtt = () => {
   }
   return client;
 };
-
 
 export const useMqttSubscription = (topic) => {
   const [messageData, setMessageData] = useState(null);
@@ -73,8 +73,6 @@ export const useMqttSubscription = (topic) => {
 
   return messageData;
 };
-
-
 
 export const useMqttStatus = (trackerId) => {
   const statusTopic = `GoNaV/status/${trackerId}`;
