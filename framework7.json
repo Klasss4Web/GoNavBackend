@@ -1,0 +1,26 @@
+{
+  "cwd": "C:\\Users\\israel.obanijesu\\OneDrive - Interswitch Limited\\Desktop\\GoNavApp",
+  "type": [
+    "pwa",
+    "capacitor"
+  ],
+  "name": "GoNavApp",
+  "framework": "react",
+  "template": "single-view",
+  "bundler": "vite",
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkMode": false,
+    "iconFonts": true
+  },
+  "customBuild": false,
+  "pkg": "io.teamwork.myapp",
+  "capacitor": {
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "appId": "io.teamwork.myapp",
+  "appName": "GoNavApp",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

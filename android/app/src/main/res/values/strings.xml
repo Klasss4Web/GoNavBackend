@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">GoNavApp</string>
+    <string name="title_activity_main">GoNavApp</string>
+    <string name="package_name">io.teamwork.myapp</string>
+    <string name="custom_url_scheme">io.teamwork.myapp</string>
+</resources>
