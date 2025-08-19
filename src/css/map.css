@@ -1,26 +1,54 @@
 .map-content {
-    --background: none;
-    /* Remove Ionic default background */
-    /* background: url('/assets/img/map.jpg') no-repeat center center / cover; */
-    background-color: rgba(247, 244, 244, 0.998);
-    height: 100%;
-    width: 100%;
-    position: relative;
+  --background: none;
+  /* Remove Ionic default background */
+  /* background: url('/assets/img/map.jpg') no-repeat center center / cover; */
+  background-color: rgba(247, 244, 244, 0.998);
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
+.map-tooltip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0.75rem;
 
+  padding: 0.75rem 1.75rem;
+  min-width: 7.5rem;
+  border-radius: 0.5rem;
+
+  /* Animation and Interaction */
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
 
 .map-overlay {
-    height: 100%;
-    width: 100%;
-    /* background-color: rgba(0, 0, 0, 0.8); */
-    /* Optional: dark overlay */
-    display: flex;
-    flex-direction: column;
-    /* justify-content: flex-end; */
-    /* align-items: center; */
-    color: white;
-    text-align: center;
+  height: 100%;
+  width: 100%;
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  /* Optional: dark overlay */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  /* align-items: center; */
+  color: white;
+  text-align: center;
 }
 
 /* .map-overlay h1 {
@@ -28,84 +56,84 @@
 /* margin-bottom: 5px; */
 /* } */
 .map-overlay p {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .map-header {
-    /* 
+  /* 
     /* background-image: linear-gradient(90deg, #5661c3, #8a3de3);
     background-color: beige;
     /* background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-    /* background:
+  /* background:
         linear-gradient(rgba(35, 4, 171, 0), rgba(9, 140, 210, 0.751)),
         url('/assets/img/route.jpg'); */
-    /* margin-top: "2%"; */
-    transform: 'translateY(0%)';
-    background-image: linear-gradient(45deg, #0d0d0e, #625f64);
-    border-radius: 20px;
-    max-width: auto;
-    margin-left: 'auto';
-    margin-right: 'auto';
-    padding: 3%;
-    /* display: 'flex';
+  /* margin-top: "2%"; */
+  transform: "translateY(0%)";
+  background-image: linear-gradient(45deg, #0d0d0e, #625f64);
+  border-radius: 20px;
+  max-width: auto;
+  margin-left: "auto";
+  margin-right: "auto";
+  padding: 3%;
+  /* display: 'flex';
     align-items: 'center';
     justify-content: 'center';
     font-weight: bold; */
-    /* font-size: larger; */
-    /* color: aliceblue; */
-    /* position: 'relative';
+  /* font-size: larger; */
+  /* color: aliceblue; */
+  /* position: 'relative';
     box-shadow: 0 4px 8px rgba(3, 18, 68, 0.575); */
 }
 
 .map-footer {
-    background-image: linear-gradient(135deg, #0f0f0fda 0%, #302f31f6 100%);
-    /* backopacity: 0.3; */
-    /* width: 100%; */
-    height: 20%;
-    /* padding: 5%; */
-    border-radius: 15% 15% 0 0;
-    /* box-shadow: 0 4px 8px rgba(3, 18, 68, 0.392); */
-    /* justify-self: center; */
+  background-image: linear-gradient(135deg, #0f0f0fda 0%, #302f31f6 100%);
+  /* backopacity: 0.3; */
+  /* width: 100%; */
+  height: 20%;
+  /* padding: 5%; */
+  border-radius: 15% 15% 0 0;
+  /* box-shadow: 0 4px 8px rgba(3, 18, 68, 0.392); */
+  /* justify-self: center; */
 
-    /* width: 100%; */
-    /* padding: 10%;
+  /* width: 100%; */
+  /* padding: 10%;
     display: "flex";
     justify-content: "center"; */
-    /* background-image: "transparent"; */
-    /* z-index: 1000; */
+  /* background-image: "transparent"; */
+  /* z-index: 1000; */
 }
 
 .mapCard {
-    /* position: relative;   */
-    overflow: hidden;
-    width: 100%;
-    /* example width */
-    height: auto;
-    /* example height */
-    /* border 1px solid #ddd; */
-    border-radius: 12px;
-    /* padding: 10px; */
-    /* background: #fff; */
-    /* display: flex;
+  /* position: relative;   */
+  overflow: hidden;
+  width: 100%;
+  /* example width */
+  height: auto;
+  /* example height */
+  /* border 1px solid #ddd; */
+  border-radius: 12px;
+  /* padding: 10px; */
+  /* background: #fff; */
+  /* display: flex;
   align-items: center;
   justify-content: flex-start;  content on left */
 }
 
 .cardImage {
-    position: absolute;
-    height: 55%;
-    /* make it bigger than container for better crop */
-    right: -15%;
-    /* shift image partially outside */
-    /* top: 50%; */
-    /* transform: translateY(-50%); */
-    /* object-fit: contain; */
-    /* user-select: none; */
-    pointer-events: none;
-    /* if you want clicks to pass through */
+  position: absolute;
+  height: 55%;
+  /* make it bigger than container for better crop */
+  right: -15%;
+  /* shift image partially outside */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  /* object-fit: contain; */
+  /* user-select: none; */
+  pointer-events: none;
+  /* if you want clicks to pass through */
 }
 
 #mapBlock {
-    height: 100Vh;
-    width: 100%;
+  height: 100vh;
+  width: 100%;
 }
