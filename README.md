@@ -1,4 +1,5 @@
-# GoNavApp
+# GoNav-Mobile-App
+GoNav is the updated version of the original Bus Tracker project, designed to provide real-time tracking of public transportation routes, stops, and vehicle locations. It offers improved performance, a cleaner interface, and better support for dynamic route updates.
 
 ## Framework7 CLI Options
 
@@ -102,5 +103,3 @@ Check out [official cordova-res documentation](https://github.com/ionic-team/cor
 Love Framework7? Support project by donating or pledging on:
 - Patreon: https://patreon.com/framework7
 - OpenCollective: https://opencollective.com/framework7
-# GoNav-Mobile-App
-GoNav is the updated version of the original Bus Tracker project, designed to provide real-time tracking of public transportation routes, stops, and vehicle locations. It offers improved performance, a cleaner interface, and better support for dynamic route updates.
