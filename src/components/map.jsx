@@ -14,8 +14,6 @@ import {
   TileLayer,
   ZoomControl,
   LayersControl,
-  useMap,
-  Polyline,
 } from "react-leaflet";
 import L from "leaflet";
 import {
@@ -27,6 +25,7 @@ import {
 } from "../js/mapComponent";
 import "leaflet/dist/leaflet.css";
 import "../css/leaflet-routing-machine.css";
+import RoutineMachine from "./RoutingMachine";
 import { motion } from "framer-motion";
 // Fix for Leaflet icon paths in bundlers like Vite/Webpack
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
@@ -98,6 +97,16 @@ const MapComponent = ({ gpsLocation, busStops }) => {
       zoomControl={false}
       style={{ width: "100%", height: "100%" }}
     >
+      {currentLocation && (
+        <RoutineMachine
+          // key={key}
+          lat1={currentLocation[0]}
+          lon1={currentLocation[1]}
+          lat2={6.5244}
+          lon2={3.3762}
+        />
+      )}
+
       <UpdateMapView center={currentLocation} />
 
       <ZoomControl position="bottomleft" />
@@ -150,19 +159,6 @@ const MapComponent = ({ gpsLocation, busStops }) => {
           </div>
         </Marker>
       ))}
-      <Polyline
-        positions={busStops.map((p) => [p.latitude, p.longitude])}
-        color="#EAB308"
-        weight={3}
-        dashArray="5, 10"
-        lineJoin="round"
-        lineCap="round"
-        pathOptions={{
-          weight: 3,
-          dashOffset: "0",
-        }}
-        className="animated-polyline"
-      />
     </MapContainer>
   );
 };
