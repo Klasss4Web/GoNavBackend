@@ -143,7 +143,11 @@ const MapComponent = ({ gpsLocation, busStops }) => {
           position={[stop.latitude, stop.longitude]}
           icon={index == busStops.length - 1 ? officeIcon : bustopIcon}
         >
-          <Popup>{stop.name}</Popup>
+          <div className="relative">
+            <Popup>
+              <span className="map-tooltip">{stop.name}</span>
+            </Popup>
+          </div>
         </Marker>
       ))}
       <Polyline
