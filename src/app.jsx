@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDevice } from "framework7/lite-bundle";
 import { f7, f7ready, App, View } from "framework7-react";
 
-import capacitorApp from "../js/capacitor-app";
-import routes from "../js/routes";
-import store from "../js/store";
-import { GlobalProvider } from "../context/globalContext";
+import store from "./js/store";
+import routes from "./js/routes";
+import capacitorApp from "./js/capacitor-app";
+import { GlobalProvider } from "./context/globalContext";
+import { pushNotificationSubscribeUser } from "./utils/pushNotification";
 
 const MyApp = () => {
   const [username, setUsername] = useState("");
@@ -56,6 +57,25 @@ const MyApp = () => {
         }
       });
     }
+  }, []);
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((registration) => {
+            console.log(
+              "✅ Service Worker registered with scope:",
+              registration.scope
+            );
+          })
+          .catch((err) => {
+            console.error("❌ Service Worker registration failed:", err);
+          });
+      });
+    }
+    pushNotificationSubscribeUser();
   }, []);
 
   return (

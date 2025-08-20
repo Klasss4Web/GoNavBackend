@@ -55,6 +55,11 @@
   font-size: 1.2rem;
 }
 
+.leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
+  margin-right: 20px !important;
+  background: transparent;
+}
+
 .compass-icon {
   background: #fff;
   width: 40px;
