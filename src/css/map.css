@@ -41,12 +41,8 @@
 .map-overlay {
   height: 100%;
   width: 100%;
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  /* Optional: dark overlay */
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-end; */
-  /* align-items: center; */
   color: white;
   text-align: center;
 }
@@ -57,6 +53,18 @@
 /* } */
 .map-overlay p {
   font-size: 1.2rem;
+}
+
+.compass-icon {
+  background: #fff;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -30px;
+  right: 20px;
+  border-radius: 50%;
+  border: 1px solid #0d0d0e;
+  background: #f2f2f2;
 }
 
 .map-header {

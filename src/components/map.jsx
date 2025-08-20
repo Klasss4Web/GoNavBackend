@@ -45,6 +45,7 @@ L.Icon.Default.mergeOptions({
 const defaultCurrentLocation = [6.428334, 3.429]; // Lagos coords
 
 const MapComponent = ({ gpsLocation, busStops }) => {
+  console.log({ busStops });
   // destructure prop
   const [currentLocation, setCurrentLocation] = useState(
     gpsLocation || defaultCurrentLocation

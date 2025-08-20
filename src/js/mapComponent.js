@@ -30,6 +30,8 @@ export const useBusStops = () => {
   const { selectedTracker } = useGlobalContext();
   const [busStopsMap, setBusStopsMap] = useState([]);
 
+  console.log({ selectedTracker });
+
   useEffect(() => {
     if (!selectedTracker?.routeName) return;
 

@@ -22,6 +22,8 @@ const RoutePage = () => {
       r?.destination?.toLowerCase()?.includes(searchTerm.toLowerCase())
   );
 
+  console.log({ route });
+
   return (
     <Page>
       <div className="route-content">
@@ -123,9 +125,6 @@ const RoutePage = () => {
                     trackerId={route.trackerId}
                     routeColor="#ef4444"
                     iconImageUrl="../assets/img/mark.png"
-                    onCardClick={(code) => {
-                      console.log("Clicked route:", code);
-                    }}
                   />
                 ))}
               {/* <TransportCard
