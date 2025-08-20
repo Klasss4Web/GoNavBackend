@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useSyncExternalStore } from "react";
-import { Page, Button, Icon, Navbar, Link } from "framework7-react";
-import { useMqttGps, useBusStops } from "../js/mapComponent";
-import NotificationDot from "../components/component";
-
-// @ts-ignore
-import MapComponent from "../components/map.jsx";
-import SwipeableFooter from "../components/collapsibleFooter.jsx";
-import "../css/map.css";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-// import { useMqttStatus } from "../js/mqttClient.js";
+import { Page, Icon, Link } from "framework7-react";
 
-// import "ag-charts-enterprise";
+import "../css/map.css";
+import MapComponent from "../components/map.jsx";
+import NotificationDot from "../components/component";
+import { useMqttGps, useBusStops } from "../js/mapComponent";
+import { useGlobalContext } from "../context/globalContext.jsx";
+import SwipeableFooter from "../components/collapsibleFooter.jsx";
 
 const TrackMap = () => {
+  const { selectedTracker } = useGlobalContext();
   const [currentLocation, setCurrentLocation] = useState(0);
   const { gpsData } = useMqttGps();
   const [speed, setSpeed] = useState(0);
@@ -44,6 +42,9 @@ const TrackMap = () => {
           justifyContent: "space-between",
         }}
       >
+        <div className="compass-icon">
+          <img src="/icons/compass.png" alt="" width="40" height="40" />
+        </div>
         <motion.div
           whileTap={{ scale: 0.9 }}
           transition={{
@@ -54,7 +55,7 @@ const TrackMap = () => {
           }}
           className="align-horizontally"
         >
-          <Button
+          <Link
             round
             style={{
               background: "black",
@@ -65,13 +66,14 @@ const TrackMap = () => {
               alignItems: "center", // vertically centers the icon
               justifyContent: "center",
               padding: "0",
+              borderRadius: "50%",
             }}
-            href="/route-page"
+            href="/route-page/"
             routerDirection="back"
             color="white"
           >
             <Icon material="chevron_left" size={35}></Icon>
-          </Button>
+          </Link>
         </motion.div>
 
         <div
@@ -80,6 +82,7 @@ const TrackMap = () => {
             // transform: 'translateY(0%)',
             background: "rgba(255 255 255 / 0.5)",
             borderRadius: 20,
+            width: "80%",
             maxWidth: "100%",
             marginLeft: "auto",
             marginRight: "auto",
@@ -89,7 +92,7 @@ const TrackMap = () => {
           }}
           className="align-horizontally-space"
         >
-          YAB251
+          {selectedTracker?.routeCode}
           <motion.div
             initial={{ x: 0 }}
             animate={{ x: [0, 5, 0] }}
