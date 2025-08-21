@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /isw-admin
+Sitemap: https://gonav.netlify.app/sitemap.xml
