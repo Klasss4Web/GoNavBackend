@@ -1,14 +1,9 @@
-import React from "react";
-import { Page, Icon, Button, Link, f7 } from "framework7-react";
+import { Page, Icon, Link } from "framework7-react";
 import { motion } from "framer-motion";
 import "../css/app.css";
 import "../css/landingPage.css";
 
 const LandingPage = () => {
-  const goToRoutePage = () => {
-    f7.views.main.router.navigate("../pages/routePage");
-  };
-
   return (
     <Page name="langingPage" className="landing-content">
       <div className="overlay">
