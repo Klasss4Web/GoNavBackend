@@ -8,6 +8,7 @@ import NotificationDot from "../components/component";
 import { useMqttGps, useBusStops } from "../js/mapComponent";
 import { useGlobalContext } from "../context/globalContext.jsx";
 import SwipeableFooter from "../components/collapsibleFooter.jsx";
+import { getTimeToNextStop } from "../utils/busStopDistance.js";
 
 const TrackMap = () => {
   const { selectedTracker } = useGlobalContext();
@@ -24,6 +25,12 @@ const TrackMap = () => {
       setDeviceId(gpsData.id);
       console.log("speed is " + gpsData.speed);
     }
+    const timeToNextBusStop = getTimeToNextStop(
+      { lat: 6.428334, lng: 3.429 },
+      busStopsMap,
+      1000
+    );
+    console.log({ timeToNextBusStop, busStopsMap });
   }, [gpsData, speed]);
 
   return (

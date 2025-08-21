@@ -123,6 +123,8 @@ const RoutePage = () => {
                     stops={route.stops - 1}
                     destination={route.destination}
                     trackerId={route.trackerId}
+                    busType={route.bus}
+                    plateNumber={route.plateNumber}
                     routeColor="#ef4444"
                     iconImageUrl="../assets/img/mark.png"
                   />

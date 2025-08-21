@@ -15,12 +15,14 @@ const TransportCard = ({
   routeColor = "",
   trackerId,
   iconImageUrl,
+  plateNumber,
+  busType = "Bus",
 }) => {
   const message = useMqttSubscription(`GoNaV/status/${trackerId}`);
   const status = message?.status === "online";
   const { setSelectedTracker } = useGlobalContext();
   const handleClick = () => {
-    const selected = { routeName, trackerId, routeCode };
+    const selected = { routeName, trackerId, routeCode, busType, plateNumber };
     setSelectedTracker(selected); // ✅ store globally
     navigate("/track-map/");
   };

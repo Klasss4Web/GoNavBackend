@@ -3,9 +3,13 @@ import { motion } from "framer-motion";
 import { Gauge, Icon } from "framework7-react";
 import { useMqttGps } from "../js/mapComponent";
 import "../css/app.css";
+import { getTimeToNextStop } from "../utils/busStopDistance";
+import { useGlobalContext } from "../context/globalContext";
 const maxSpeed = 240;
 
-const SwipeableFooter = ({newSpeed, totalStop}) => {
+const SwipeableFooter = ({ newSpeed, totalStop }) => {
+  const { selectedTracker } = useGlobalContext();
+
   const [isOpen, setIsOpen] = useState(false);
   const [speed, setSpeed] = useState(newSpeed || 0);
   const [speedPercent, setSpeedPercent] = useState(0);
@@ -13,15 +17,15 @@ const SwipeableFooter = ({newSpeed, totalStop}) => {
 
   const constraintsRef = useRef(null);
 
- useEffect(() => {
-  //  if (gpsData && typeof gpsData.speed !== 'undefined') {
-  if(newSpeed){
-     setSpeed(newSpeed);
+  useEffect(() => {
+    //  if (gpsData && typeof gpsData.speed !== 'undefined') {
+    if (newSpeed) {
+      setSpeed(newSpeed);
 
-     setSpeedPercent(speed/maxSpeed);
-    //  console.log('speed is ' + gpsData.speed);
-   }
- }, [newSpeed]);
+      setSpeedPercent(speed / maxSpeed);
+      //  console.log('speed is ' + gpsData.speed);
+    }
+  }, [newSpeed]);
 
   return (
     <div
@@ -29,16 +33,14 @@ const SwipeableFooter = ({newSpeed, totalStop}) => {
       style={{
         position: "fixed",
         inset: 0,
-        pointerEvents: "none", // container doesn't block 
-        zIndex:1000,
-       
+        pointerEvents: "none", // container doesn't block
+        zIndex: 1000,
       }}
     >
       <motion.div
         drag="y"
         dragConstraints={constraintsRef} // hard physical limit
         dragElastic={0.2}
-        
         onDragEnd={(event, info) => {
           // Snap to closest state
           if (info.offset.y > 50) setIsOpen(false);
@@ -59,7 +61,7 @@ const SwipeableFooter = ({newSpeed, totalStop}) => {
             "linear-gradient(135deg, #0f0f0fda 0%, #302f31f6 100%)",
           boxShadow: "0 -2px 10px rgba(0,0,0,0.2)",
           zIndex: 1000,
-      borderTop: "1px solid white",
+          borderTop: "1px solid white",
           borderTopLeftRadius: "16px",
           borderTopRightRadius: "16px",
           overflow: "hidden",
@@ -82,99 +84,112 @@ const SwipeableFooter = ({newSpeed, totalStop}) => {
           }}
         />
 
-
-
-            {/* Footer Content */}
-            <div style={{ position: 'relative', top: '-120px', color: 'white' }} className="align-vertically">
-
-                <div className="align-horizontally">
-                    <div className="grid grid-cols-3 ">
-                        <div className="small-block">
-                            <div style={{ width: "60%", height: "60%", marginTop: "2%" }}>
-                                <Gauge
-                                    type="semicircle"
-                                    value={speed/240}
-                              valueText={speed > 0 ? Math.round(speed) : "0"}
-                                    valueTextColor="rgb(229, 231, 234)"
-                                    valueFontSize={47}
-                                    valueFontWeight={700}
-                                    borderWidth={8}
-                                    borderColor="#c2782d"
-                                    borderBgColor="transparent"
-                                />
-                            </div>
-                            <span style={{ color: 'gray' }}>Speed Km/hr</span>
-                        </div>
-                        <div className="small-block">
-
-                            <div className="align-horizontally-space">
-                                <Icon material="transfer_within_a_station"></Icon>
-
-                                <motion.div
-                                    initial={{ x: 0 }}
-                                    animate={{ x: [0, 5, 0] }}
-                                    transition={{
-                                        duration: 1,
-                                        repeat: Infinity,
-                                        ease: "easeInOut",
-                                    }}
-                                    style={{ display: "flex", alignItems: "center", marginRight: "8px" }}
-                                >
-                                    <Icon ios="f7:arrow_right" md="f7:arrow_right" />
-                                </motion.div>
-                                <span id="busStop" style={{ fontSize: '1.8rem', fontWeight: '500', marginLeft: '10%' }}> {totalStop}</span></div>
-                            <span style={{ color: 'gray', fontSize: '0.8rem'}}> Stops Left  </span>
-                        </div>
-
-                        <div className="small-block">
-
-                            <span>
-                                <span style={{ fontSize: '1.6rem', fontWeight: '500' }}>10</span>
-                                <span style={{ fontSize: '1rem' }}>hr </span>
-                                <span style={{ fontSize: '1.6rem', fontWeight: '500' }}>20</span>
-                                <span style={{ fontSize: '1rem' }}>{"min"}</span>
-                            </span>
-                            <span style={{ color: 'gray', fontSize: '0.8rem', }}>Time Remaining</span>
-                        </div>
-
-
-                    </div>
+        {/* Footer Content */}
+        <div
+          style={{ position: "relative", top: "-120px", color: "white" }}
+          className="align-vertically"
+        >
+          <div className="align-horizontally">
+            <div className="grid grid-cols-3 ">
+              <div className="small-block">
+                <div style={{ width: "60%", height: "60%", marginTop: "2%" }}>
+                  <Gauge
+                    type="semicircle"
+                    value={speed / 240}
+                    valueText={speed > 0 ? Math.round(speed) : "0"}
+                    valueTextColor="rgb(229, 231, 234)"
+                    valueFontSize={47}
+                    valueFontWeight={700}
+                    borderWidth={8}
+                    borderColor="#c2782d"
+                    borderBgColor="transparent"
+                  />
                 </div>
+                <span style={{ color: "gray" }}>Speed Km/hr</span>
+              </div>
+              <div className="small-block">
+                <div className="align-horizontally-space">
+                  <Icon material="transfer_within_a_station"></Icon>
 
-
-                <div className="align-horizontally" style={{position:'absolute',top:'80px' }}>
-                    <div className="grid grid-cols-3 ">
-                        <div className="small-block">
-
-
-
-
-                        </div>
-                              <div className="small-block">
-
-                      <div
-
-                      className="arrow-box">
-                  Hiace LG2345 
-                    </div>           
-                        </div>
-                              <div className="small-block"  >
- <img src="../assets/img/hiace.png" 
-
- style={{ width: 'auto', height: '5rem', marginLeft:'50%'}}
-  />                 
-                        </div>
-
-                    </div>
+                  <motion.div
+                    initial={{ x: 0 }}
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "8px",
+                    }}
+                  >
+                    <Icon ios="f7:arrow_right" md="f7:arrow_right" />
+                  </motion.div>
+                  <span
+                    id="busStop"
+                    style={{
+                      fontSize: "1.8rem",
+                      fontWeight: "500",
+                      marginLeft: "10%",
+                    }}
+                  >
+                    {" "}
+                    {totalStop >= 0 ? totalStop : 0}
+                  </span>
                 </div>
+                <span style={{ color: "gray", fontSize: "0.8rem" }}>
+                  {" "}
+                  Stops Left{" "}
+                </span>
+              </div>
 
-
-
-
+              <div className="small-block">
+                <span>
+                  <span style={{ fontSize: "1.6rem", fontWeight: "500" }}>
+                    10
+                  </span>
+                  <span style={{ fontSize: "1rem" }}>hr </span>
+                  <span style={{ fontSize: "1.6rem", fontWeight: "500" }}>
+                    20
+                  </span>
+                  <span style={{ fontSize: "1rem" }}>{"min"}</span>
+                </span>
+                <span style={{ color: "gray", fontSize: "0.8rem" }}>
+                  Time Remaining
+                </span>
+              </div>
             </div>
-        </motion.div>
+          </div>
+
+          <div
+            className="align-horizontally"
+            style={{ position: "absolute", top: "80px" }}
+          >
+            <div className="grid grid-cols-3 ">
+              <div className="small-block"></div>
+              <div className="small-block">
+                <div className="arrow-box">
+                  {selectedTracker?.busType} {selectedTracker?.plateNumber}
+                </div>
+              </div>
+              <div className="small-block">
+                <img
+                  src={
+                    selectedTracker?.busType === "coaster"
+                      ? "../assets/img/costerBus.png"
+                      : "../assets/img/hiace.png"
+                  }
+                  style={{ width: "auto", height: "5rem", marginLeft: "50%" }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </motion.div>
+    </div>
+  );
 };
 
 export default SwipeableFooter;

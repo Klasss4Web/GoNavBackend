@@ -31,6 +31,7 @@ import { motion } from "framer-motion";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+import { getNextStop } from "../utils/busStopDistance";
 
 // import { useGps } from '../context/globalContext.jsx'; // adjust path
 
@@ -45,7 +46,6 @@ L.Icon.Default.mergeOptions({
 const defaultCurrentLocation = [6.428334, 3.429]; // Lagos coords
 
 const MapComponent = ({ gpsLocation, busStops }) => {
-  console.log({ busStops });
   // destructure prop
   const [currentLocation, setCurrentLocation] = useState(
     gpsLocation || defaultCurrentLocation
@@ -143,7 +143,18 @@ const MapComponent = ({ gpsLocation, busStops }) => {
 
       <Marker ref={markerRef} position={currentLocation}>
         <Popup>
-          Current Location: <br /> {currentLocation[0]}, {currentLocation[1]}
+          Current Location: <br /> {currentLocation[0]}, {currentLocation[1]}{" "}
+          <br />
+          Heading to{" "}
+          {
+            getNextStop(
+              {
+                latitude: currentLocation[0],
+                longitude: currentLocation[1],
+              },
+              busStops
+            )?.name
+          }
         </Popup>
       </Marker>
       {/* Markers for Bus Stops */}
