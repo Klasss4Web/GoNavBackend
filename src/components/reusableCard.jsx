@@ -22,7 +22,14 @@ const TransportCard = ({
   const status = message?.status === "online";
   const { setSelectedTracker } = useGlobalContext();
   const handleClick = () => {
-    const selected = { routeName, trackerId, routeCode, busType, plateNumber };
+    const selected = {
+      routeName,
+      trackerId,
+      routeCode,
+      busType,
+      plateNumber,
+      destination,
+    };
     setSelectedTracker(selected); // ✅ store globally
     navigate("/track-map/");
   };

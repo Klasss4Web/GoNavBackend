@@ -7,7 +7,7 @@ import { getTimeToNextStop } from "../utils/busStopDistance";
 import { useGlobalContext } from "../context/globalContext";
 const maxSpeed = 240;
 
-const SwipeableFooter = ({ newSpeed, totalStop }) => {
+const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
   const { selectedTracker } = useGlobalContext();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -146,18 +146,10 @@ const SwipeableFooter = ({ newSpeed, totalStop }) => {
               </div>
 
               <div className="small-block">
-                <span>
-                  <span style={{ fontSize: "1.6rem", fontWeight: "500" }}>
-                    10
-                  </span>
-                  <span style={{ fontSize: "1rem" }}>hr </span>
-                  <span style={{ fontSize: "1.6rem", fontWeight: "500" }}>
-                    20
-                  </span>
-                  <span style={{ fontSize: "1rem" }}>{"min"}</span>
-                </span>
+                <span> {nextStop}</span>
+
                 <span style={{ color: "gray", fontSize: "0.8rem" }}>
-                  Time Remaining
+                  Next Stop
                 </span>
               </div>
             </div>

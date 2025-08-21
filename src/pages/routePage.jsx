@@ -15,6 +15,8 @@ const RoutePage = () => {
   const { route, error, loading } = routeFetch(); // Call the hook
   const [searchTerm, setSearchTerm] = useState("");
 
+  console.log({ route });
+
   const filteredRoutes = route.filter(
     (r) =>
       r?.route?.toLowerCase()?.includes(searchTerm.toLowerCase()) ||
