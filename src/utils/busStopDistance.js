@@ -28,7 +28,7 @@ const isAhead = (busLocation, stop, stops) => {
   return busIndex !== -1 && stopIndex !== -1 && stopIndex > busIndex;
 };
 
-function getNextStopAhead(busLocation, stops) {
+export function getNextStopAhead(busLocation, stops) {
   let closest = null;
   let closestDist = Infinity;
 
@@ -50,10 +50,12 @@ function getNextStopAhead(busLocation, stops) {
   return closest;
 }
 
-let lastPassedIndex = 0;
+let lastPassedIndex = -1; // start before the first stop
 
 export const getNextStop = (busLocation, stops) => {
-  for (let i = lastPassedIndex; i < stops?.length; i++) {
+  let nextStop = null;
+
+  for (let i = 0; i < stops.length; i++) {
     const dist = getDistance(
       busLocation.lat || busLocation.latitude,
       busLocation.lng || busLocation.longitude,
@@ -61,14 +63,18 @@ export const getNextStop = (busLocation, stops) => {
       stops[i].lng || stops[i].longitude
     );
 
-    // If bus is within 100m of this stop, mark it as passed
+    // If bus is within 100m, update lastPassedIndex
     if (dist < 100) {
       lastPassedIndex = i;
-    } else {
-      return stops[i]; // this is the next ahead stop
     }
   }
-  return null; // end of route
+
+  // Next stop is just after the last passed one
+  if (lastPassedIndex + 1 < stops.length) {
+    nextStop = stops[lastPassedIndex + 1];
+  }
+
+  return nextStop;
 };
 
 // const nextStop = getNextStop(busLocation, busStops);

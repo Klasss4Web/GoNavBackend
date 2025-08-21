@@ -40,13 +40,11 @@ export const useBusStops = () => {
     fetch(`https://obiot.duckdns.org/GoNav/route/${routeFile}`)
       .then((res) => res.json())
       .then((data) => {
-        const transformed = data.map((item) => ({
-          name: item.name,
-          latitude: item.latitude,
-          longitude: item.longitude,
-          returnValue: item.returnValue,
-        }));
-        setBusStopsMap(transformed);
+        const allRoutes =
+          selectedTracker.destination?.toLowerCase() !== "interswitch"
+            ? data
+            : [...data].reverse();
+        setBusStopsMap(allRoutes);
         console.log("Fetched route:", selectedTracker.routeName);
       })
       .catch((err) => console.error("Failed to load bus stops:", err));

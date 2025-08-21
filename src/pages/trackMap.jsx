@@ -8,7 +8,7 @@ import NotificationDot from "../components/component";
 import { useMqttGps, useBusStops } from "../js/mapComponent";
 import { useGlobalContext } from "../context/globalContext.jsx";
 import SwipeableFooter from "../components/collapsibleFooter.jsx";
-import { getTimeToNextStop } from "../utils/busStopDistance.js";
+import { getNextStop } from "../utils/busStopDistance.js";
 
 const TrackMap = () => {
   const { selectedTracker } = useGlobalContext();
@@ -16,7 +16,9 @@ const TrackMap = () => {
   const { gpsData } = useMqttGps();
   const [speed, setSpeed] = useState(0);
   const [deviceId, setDeviceId] = useState(0);
-  const busStopsMap = useBusStops(); // Call the hook
+  const busStopsMap = useBusStops();
+
+  console.log({ busStopsMap }); // Call the hook
   const status = true;
   useEffect(() => {
     if (gpsData && typeof gpsData.speed !== "undefined") {
@@ -25,12 +27,12 @@ const TrackMap = () => {
       setDeviceId(gpsData.id);
       console.log("speed is " + gpsData.speed);
     }
-    const timeToNextBusStop = getTimeToNextStop(
-      { lat: 6.428334, lng: 3.429 },
-      busStopsMap,
-      1000
-    );
-    console.log({ timeToNextBusStop, busStopsMap });
+    // const timeToNextBusStop = getTimeToNextStop(
+    //   { lat: 6.428334, lng: 3.429 },
+    //   busStopsMap,
+    //   1000
+    // );
+    // console.log({ timeToNextBusStop, busStopsMap });
   }, [gpsData, speed]);
 
   return (
@@ -140,7 +142,19 @@ const TrackMap = () => {
 
       <MapComponent gpsLocation={currentLocation} busStops={busStopsMap} />
 
-      <SwipeableFooter newSpeed={speed} totalStop={busStopsMap.length - 1} />
+      <SwipeableFooter
+        newSpeed={speed}
+        totalStop={busStopsMap.length - 1}
+        nextStop={
+          getNextStop(
+            {
+              latitude: currentLocation[0],
+              longitude: currentLocation[1],
+            },
+            busStopsMap
+          )?.name || "Final destination"
+        }
+      />
     </Page>
   );
 };
