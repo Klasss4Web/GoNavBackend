@@ -64,15 +64,8 @@ export const routeFetch = () => {
     fetch("https://obiot.duckdns.org/GoNav/route/route.json")
       .then((res) => res.json())
       .then((data) => {
-        const transformed = data.map((item) => ({
-          route: item.route,
-          routeCode: item.routeCode,
-          destination: item.destination,
-          stops: item.stops,
-          trackerId: item.trackerId,
-        }));
         setError(null);
-        setRoute(transformed);
+        setRoute(data);
       })
       .catch((err) => {
         setError(err);
