@@ -41,7 +41,7 @@ export const useBusStops = () => {
       .then((res) => res.json())
       .then((data) => {
         const allRoutes =
-          selectedTracker.destination?.toLowerCase() !== "interswitch"
+          selectedTracker.destination?.toLowerCase() === "interswitch"
             ? data
             : [...data].reverse();
         setBusStopsMap(allRoutes);
