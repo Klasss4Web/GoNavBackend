@@ -46,8 +46,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title || "New Notification", {
       body: data.body || "You’ve got a message!",
-      icon: "/icons/icon-192x192.png",
-      badge: "/icons/icon-72x72.png",
+      icon: "/icons/andoird-chrome-192x192.png",
+      badge: "/icons/favicon-32x32.png",
       data: data.url || "/",
     })
   );

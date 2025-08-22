@@ -75,8 +75,10 @@ const MyApp = () => {
           });
       });
     }
-    pushNotificationSubscribeUser();
   }, []);
+
+  const publicVapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
+  console.log({ publicVapidKey, VITE: import.meta.env.VITE_VAPID_PUBLIC_KEY });
 
   return (
     // <GpsProvider>

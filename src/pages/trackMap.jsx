@@ -9,6 +9,7 @@ import { useMqttGps, useBusStops } from "../js/mapComponent";
 import { useGlobalContext } from "../context/globalContext.jsx";
 import SwipeableFooter from "../components/collapsibleFooter.jsx";
 import { getNextStop } from "../utils/busStopDistance.js";
+import { triggerPushNotification } from "../service/notification.js";
 
 const TrackMap = () => {
   const { selectedTracker } = useGlobalContext();
@@ -18,7 +19,7 @@ const TrackMap = () => {
   const [deviceId, setDeviceId] = useState(0);
   const busStopsMap = useBusStops();
 
-  console.log({ busStopsMap }); // Call the hook
+  console.log({ busStopsMap, gpsData }); // Call the hook
   const status = true;
   useEffect(() => {
     if (gpsData && typeof gpsData.speed !== "undefined") {
@@ -33,6 +34,15 @@ const TrackMap = () => {
     //   1000
     // );
     // console.log({ timeToNextBusStop, busStopsMap });
+    const payload = {
+      title: "Bus Stop Alert🔔",
+      body: `We are approaching ${gpsData?.busstopName} bus stop!`,
+      url: "/",
+      routeCode: selectedTracker?.routeCode,
+    };
+    if (gpsData?.busStopFlag) {
+      triggerPushNotification(payload);
+    }
   }, [gpsData, speed]);
 
   return (
