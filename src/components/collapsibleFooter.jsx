@@ -159,10 +159,10 @@ const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
             className="align-horizontally"
             style={{ position: "absolute", top: "80px" }}
           >
-            <div className="grid grid-cols-3 ">
-              <div className="small-block"></div>
+            <div className="grid grid-cols-4 bus-details">
+              {/* <div className="small-block"></div> */}
               <div className="small-block">
-                <div className="arrow-box">
+                <div className="arrow-box bus-plate">
                   {selectedTracker?.busType} {selectedTracker?.plateNumber}
                 </div>
               </div>

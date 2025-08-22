@@ -1,23 +1,47 @@
 // src/subscribe.js
-const publicVapidKey = "BEXAMPLEc9nGm..."; // same as generated above
+// const publicVapidKey = import.meta.env.VITE_VAPID_KEY;
 
-export async function pushNotificationSubscribeUser() {
+import { BASE_URL } from "../service/endPointConstants";
+
+const publicVapidKey =
+  "BGniIxi9J8sN2MMP1MvPVxSaRW6qnSGrUutrZJkZwXXTFJJ5vuF5--Jk79ZOY3fvecuzP5h4HjXe0l3L-EsgwYw";
+
+export async function pushNotificationSubscribeUser(routeCode) {
+  console.log({ publicVapidKey });
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+    alert("❌ Push not supported in this browser.");
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") {
+    alert("❌ Notifications denied.");
+    return;
+  }
   if ("serviceWorker" in navigator && "PushManager" in window) {
-    const registration = await navigator.serviceWorker.register(
-      "/service-worker.js"
-    );
-
+    // const registration = await navigator.serviceWorker.register(
+    //   "/service-worker.js"
+    // );
+    const registration = await navigator.serviceWorker.ready;
+    console.log("HELLO PUSH", registration);
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
     });
 
-    // Send subscription to your backend
-    await fetch("/api/save-subscription", {
-      method: "POST",
-      body: JSON.stringify(subscription),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      // Send subscription to your backend
+      const response = await fetch(
+        `${BASE_URL}/push-notification/save-subscription`,
+        {
+          method: "POST",
+          body: JSON.stringify({ routeCode, subscription }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log(`Push notification sent successfully: ${response}`);
+    } catch (error) {
+      console.log(`Error sending push notification ${error}`);
+    }
   }
 }
 

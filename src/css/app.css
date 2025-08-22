@@ -311,6 +311,10 @@ ion-button.button-big {
   overflow: hidden;
 }
 
+.bus-details {
+  display: flex;
+}
+
 .small-block {
   /* background-color: brown; */
   /* height: 80px; */
@@ -338,4 +342,7 @@ ion-button.button-big {
   /* clip-path: polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px); */
 
   background: rgba(255 255 255 / 0.15);
+}
+.bus-plate {
+  padding: 10px 15px;
 }

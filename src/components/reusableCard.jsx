@@ -6,6 +6,7 @@ import NotificationDot from "./component";
 import { navigate } from "../utils/f7Utils";
 import { useMqttSubscription } from "../js/mqttClient";
 import { useGlobalContext } from "../context/globalContext";
+import { pushNotificationSubscribeUser } from "../utils/pushNotification";
 
 const TransportCard = ({
   routeName,
@@ -31,6 +32,7 @@ const TransportCard = ({
       destination,
     };
     setSelectedTracker(selected); // ✅ store globally
+    pushNotificationSubscribeUser(routeCode);
     navigate("/track-map/");
   };
 

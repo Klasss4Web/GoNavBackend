@@ -5,6 +5,7 @@
   "description": "GoNavApp",
   "repository": "",
   "license": "UNLICENSED",
+  "proxy": "http://localhost:5000/",
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development vite",
