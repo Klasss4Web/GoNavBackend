@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./notificationToast.css";
 
-export const NotificationToast = ({ show, onClose, title, message, icon }) => {
+export const NotificationAlert = ({ show, onClose, title, message, icon }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import store from "./js/store";
 import routes from "./js/routes";
 import capacitorApp from "./js/capacitor-app";
 import { GlobalProvider } from "./context/globalContext";
-import { NotificationToast } from "./components/toasts/notificationtoast";
+import { NotificationAlert } from "./components/toasts/notificationAlert";
 
 const MyApp = () => {
   const device = getDevice();
@@ -105,7 +105,7 @@ const MyApp = () => {
     <GlobalProvider>
       <App {...f7params}>
         <View main className="safe-areas" url="/" />
-        <NotificationToast
+        <NotificationAlert
           show={customPopData?.showPopup}
           onClose={() =>
             setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
