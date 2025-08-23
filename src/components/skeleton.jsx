@@ -12,7 +12,7 @@ export const Skeleton = ({ width, height, isCircle }) => {
 export const CardSkeleton = ({ count }) => {
   return (
     <>
-      {[...Array(count)].map((c) => (
+      {[...Array(count)].map((_, c) => (
         <div key={c} style={{ display: "flex", width: "100%" }}>
           {/* <Skeleton width="48px" height="48px" /> */}
           <div

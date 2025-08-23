@@ -29,7 +29,6 @@ workbox.routing.registerRoute(
 
 self.addEventListener("install", (event) => {
   console.log("SW installed");
-  self.skipWaiting(); // optional, forces immediate activation
 });
 
 self.addEventListener("activate", (event) => {
@@ -41,11 +40,6 @@ self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
-});
-
-// 🔄 Notify the client when a new SW is waiting
-self.addEventListener("waiting", () => {
-  console.log("New service worker is waiting to activate");
 });
 
 // ✅ Push Notifications

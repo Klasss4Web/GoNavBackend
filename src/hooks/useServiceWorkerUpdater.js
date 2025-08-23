@@ -10,11 +10,14 @@ export function useServiceWorkerUpdater() {
           const newWorker = registration.installing;
           if (newWorker) {
             newWorker.addEventListener("statechange", () => {
-              if (
-                newWorker.state === "installed" &&
-                navigator.serviceWorker.controller
-              ) {
-                setWaitingWorker(newWorker);
+              if (newWorker.state === "installed") {
+                // ✅ Only show toast if already controlled (means it's an update)
+                if (navigator.serviceWorker.controller) {
+                  console.log("[SW] New update ready");
+                  setWaitingWorker(newWorker);
+                } else {
+                  console.log("[SW] First install, skip showing toast");
+                }
               }
             });
           }
@@ -26,7 +29,14 @@ export function useServiceWorkerUpdater() {
   const updateServiceWorker = () => {
     if (waitingWorker) {
       waitingWorker.postMessage({ type: "SKIP_WAITING" });
-      setWaitingWorker(null); // ✅ Close toast after updating
+
+      waitingWorker.addEventListener("statechange", (e) => {
+        if (e.target.state === "activated") {
+          window.location.reload();
+        }
+      });
+
+      setWaitingWorker(null); // close toast
     }
   };
 
