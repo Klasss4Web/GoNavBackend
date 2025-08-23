@@ -37,7 +37,7 @@ self.addEventListener("push", (event) => {
 
   try {
     if (event.data) {
-      data = event.data.json(); // 👈 must be valid JSON
+      data = event.data.json(); // must be valid JSON
     }
   } catch (e) {
     console.warn("Push payload was not valid JSON, using fallback.", e);
@@ -49,6 +49,8 @@ self.addEventListener("push", (event) => {
       icon: "/icons/andoird-chrome-192x192.png",
       badge: "/icons/favicon-32x32.png",
       data: data.url || "/",
+      // image:
+      //   "https://res.cloudinary.com/emy-commerce/image/upload/v1755855235/android-chrome-192x192_fhn8hd.png",
     })
   );
 });
