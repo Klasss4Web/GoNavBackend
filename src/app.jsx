@@ -8,6 +8,7 @@ import capacitorApp from "./js/capacitor-app";
 import { GlobalProvider } from "./context/globalContext";
 import { NotificationAlert } from "./components/toasts/notificationAlert";
 import SWUpdaterToast from "./components/toasts/swUpdateToast";
+import PullToRefreshWrapper from "./components/pullRefresh/PullToRefreshWrapper";
 
 const MyApp = () => {
   const device = getDevice();
@@ -104,19 +105,21 @@ const MyApp = () => {
   return (
     // <GpsProvider>
     <GlobalProvider>
-      <App {...f7params}>
-        <View main className="safe-areas" url="/" />
-        <NotificationAlert
-          show={customPopData.showPopup}
-          onClose={() =>
-            setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
-          }
-          title={customPopData?.data?.title}
-          message={customPopData?.data?.body}
-          icon="/icons/apple-touch-icon.png" // put this in public folder
-        />
-        <SWUpdaterToast />
-      </App>
+      <PullToRefreshWrapper>
+        <App {...f7params}>
+          <View main className="safe-areas" url="/" />
+          <NotificationAlert
+            show={customPopData.showPopup}
+            onClose={() =>
+              setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
+            }
+            title={customPopData?.data?.title}
+            message={customPopData?.data?.body}
+            icon="/icons/apple-touch-icon.png" // put this in public folder
+          />
+          <SWUpdaterToast />
+        </App>
+      </PullToRefreshWrapper>
     </GlobalProvider>
   );
 };
