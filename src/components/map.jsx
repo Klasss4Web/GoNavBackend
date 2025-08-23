@@ -101,10 +101,10 @@ const MapComponent = ({ gpsLocation, busStops }) => {
       {currentLocation && (
         <RoutineMachine
           // key={key}
-          lat1={currentLocation[0]}
-          lon1={currentLocation[1]}
-          lat2={6.5244}
-          lon2={3.3762}
+          lat1={busStops?.[0]?.latitude}
+          lon1={busStops?.[0]?.longitude}
+          lat2={busStops?.at(-1)?.latitude}
+          lon2={busStops?.at(-1)?.longitude}
         />
       )}
 
