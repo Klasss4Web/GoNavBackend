@@ -47,7 +47,7 @@ self.addEventListener("push", (event) => {
     self.registration.showNotification(data.title || "New Notification", {
       body: data.body || "You’ve got a message!",
       icon: "/icons/android-chrome-192x192.png",
-      badge: "/icons/favicon-32x32.png",
+      badge: "/icons/favicon-16x16.png",
       data: data.url || "/",
       // image:
       //   "https://res.cloudinary.com/emy-commerce/image/upload/v1755855235/android-chrome-192x192_fhn8hd.png",

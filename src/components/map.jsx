@@ -14,6 +14,7 @@ import {
   TileLayer,
   ZoomControl,
   LayersControl,
+  Circle,
 } from "react-leaflet";
 import L from "leaflet";
 import {
@@ -32,6 +33,10 @@ import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { getNextStop, getNextStopAhead } from "../utils/busStopDistance";
+import { useMapControls } from "../hooks/useMapControls";
+import { RotateMap } from "./map/RotateMap";
+import { CompassControl } from "./map/MapCompassControl";
+import { useGlobalContext } from "../context/globalContext";
 
 // import { useGps } from '../context/globalContext.jsx'; // adjust path
 
@@ -46,6 +51,8 @@ L.Icon.Default.mergeOptions({
 const defaultCurrentLocation = [6.428334, 3.429]; // Interswitch coords
 
 const MapComponent = ({ gpsLocation, busStops }) => {
+  const { selectedTracker } = useGlobalContext();
+  const { heading } = useMapControls();
   // destructure prop
   const [currentLocation, setCurrentLocation] = useState(
     gpsLocation || defaultCurrentLocation
@@ -97,6 +104,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
       scrollWheelZoom={true}
       zoomControl={false}
       style={{ width: "100%", height: "100%" }}
+      whenCreated={(map) => (window._leaflet_map = map)}
     >
       {currentLocation && (
         <RoutineMachine
@@ -158,7 +166,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
                 },
                 busStops
               )?.name
-            : "Final Destination"}
+            : selectedTracker?.busStopName}
         </Popup>
       </Marker>
       {/* Markers for Bus Stops */}
@@ -175,6 +183,8 @@ const MapComponent = ({ gpsLocation, busStops }) => {
           </div>
         </Marker>
       ))}
+
+      <CompassControl heading={heading} />
     </MapContainer>
   );
 };

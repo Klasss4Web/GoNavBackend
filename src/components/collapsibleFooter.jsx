@@ -146,7 +146,7 @@ const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
               </div>
 
               <div className="small-block">
-                <span> {nextStop}</span>
+                <span> {nextStop || selectedTracker?.busStopName}</span>
 
                 <span style={{ color: "gray", fontSize: "0.8rem" }}>
                   Next Stop
