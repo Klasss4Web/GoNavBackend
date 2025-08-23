@@ -5,6 +5,9 @@
   /* background-color: rgba(247, 244, 244, 0.998); */
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
 }
 
@@ -30,12 +33,10 @@
 .route-overlay {
   height: 100%;
   width: 100%;
+  max-width: 600px;
   background-color: rgba(251, 250, 250, 0.808);
-  /* Optional: dark overlay */
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-end; */
-  /* align-items: center; */
   color: white;
   text-align: center;
 }
