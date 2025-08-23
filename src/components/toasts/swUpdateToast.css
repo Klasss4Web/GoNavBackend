@@ -1,7 +1,12 @@
+.update-toast-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .update-app-toast {
   position: fixed;
   bottom: 20px;
-  left: 50%;
   width: 100%;
   max-width: 320px;
   transform: translateX(-50%);
@@ -14,6 +19,28 @@
   gap: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   z-index: 9999;
+
+  transform: translateY(100%);
+  opacity: 0;
+  animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.update-app-toast.closing {
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
 }
 
 .update-app-toast p {
