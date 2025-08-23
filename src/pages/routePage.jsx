@@ -51,10 +51,11 @@ const RoutePage = () => {
                 </Button>
                 <h1
                   style={{
-                    transform: "translateX(-10%)",
+                    // transform: "translateX(0%)",
                     flex: 1,
                     fontWeight: "bold",
-                    textAlign: "center",
+                    // textAlign: "center",
+                    marginRight: "50px",
                   }}
                 >
                   Bus Routes
