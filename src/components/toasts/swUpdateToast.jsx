@@ -11,12 +11,7 @@ export default function SWUpdaterToast() {
   return (
     <div className="update-app-toast">
       <div
-        style={{
-          color: "white",
-          position: "absolute",
-          right: "10px",
-          top: "5px",
-        }}
+        className="toast-update-app-close"
         onClick={() => setWaitingWorker(null)}
       >
         X
