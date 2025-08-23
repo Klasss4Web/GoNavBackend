@@ -12,12 +12,13 @@ import { getNextStop } from "../utils/busStopDistance.js";
 import { triggerPushNotification } from "../service/notification.js";
 
 const TrackMap = () => {
-  const { selectedTracker } = useGlobalContext();
+  const { selectedTracker, setSelectedTracker } = useGlobalContext();
   const [currentLocation, setCurrentLocation] = useState(0);
   const { gpsData } = useMqttGps();
   const [speed, setSpeed] = useState(0);
   const [deviceId, setDeviceId] = useState(0);
   const busStopsMap = useBusStops();
+  const [lastBusStop, setLastBusStop] = useState(null);
 
   console.log({ busStopsMap, gpsData }); // Call the hook
   const status = true;
@@ -40,10 +41,22 @@ const TrackMap = () => {
       url: "/",
       routeCode: selectedTracker?.routeCode,
     };
-    if (gpsData?.busStopFlag) {
+
+    if (gpsData.busStopFlag && gpsData.busstopName !== "non") {
       triggerPushNotification(payload);
+      setLastBusStop(gpsData.busstopName);
+      setSelectedTracker((prev) => ({
+        ...prev,
+        busSpeed: gpsData?.speed,
+        busStopName: gpsData?.busstopName,
+      })); // ensure it fires once per stop
     }
-  }, [gpsData, speed]);
+
+    // reset lastBusStop when flag goes false (so it can fire again next time)
+    if (!gpsData.busStopFlag) {
+      setLastBusStop(null);
+    }
+  }, [gpsData]);
 
   return (
     <Page style={{ height: "100%", width: "100%" }}>

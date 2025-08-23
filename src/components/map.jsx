@@ -158,7 +158,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
                 },
                 busStops
               )?.name
-            : "Final Destination"}
+            : selectedTracker?.busStopName}
         </Popup>
       </Marker>
       {/* Markers for Bus Stops */}
