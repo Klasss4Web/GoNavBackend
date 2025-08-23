@@ -37,6 +37,17 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(clients.claim()); // ensures the page is controlled immediately
 });
 
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
+// 🔄 Notify the client when a new SW is waiting
+self.addEventListener("waiting", () => {
+  console.log("New service worker is waiting to activate");
+});
+
 // ✅ Push Notifications
 self.addEventListener("push", (event) => {
   console.log("Push event received:", event);
@@ -78,12 +89,6 @@ self.addEventListener("push", (event) => {
         });
       })
   );
-});
-
-console.log("SW installed/activated");
-
-self.addEventListener("activate", (event) => {
-  console.log("SW activated!");
 });
 
 // ✅ Click handler

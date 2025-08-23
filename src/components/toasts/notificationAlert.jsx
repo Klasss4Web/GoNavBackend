@@ -10,7 +10,7 @@ export const NotificationAlert = ({ show, onClose, title, message, icon }) => {
       const timer = setTimeout(() => {
         setVisible(false);
         if (onClose) onClose();
-      }, 4000);
+      }, 4500);
 
       return () => clearTimeout(timer);
     }

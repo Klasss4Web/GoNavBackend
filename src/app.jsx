@@ -7,6 +7,7 @@ import routes from "./js/routes";
 import capacitorApp from "./js/capacitor-app";
 import { GlobalProvider } from "./context/globalContext";
 import { NotificationAlert } from "./components/toasts/notificationAlert";
+import SWUpdaterToast from "./components/toasts/swUpdateToast";
 
 const MyApp = () => {
   const device = getDevice();
@@ -106,14 +107,15 @@ const MyApp = () => {
       <App {...f7params}>
         <View main className="safe-areas" url="/" />
         <NotificationAlert
-          show={customPopData?.showPopup}
+          show={customPopData.showPopup}
           onClose={() =>
             setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
           }
           title={customPopData?.data?.title}
           message={customPopData?.data?.body}
-          icon="/icons/favicon-16x16.png" // put this in public folder
+          icon="/icons/apple-touch-icon.png" // put this in public folder
         />
+        <SWUpdaterToast />
       </App>
     </GlobalProvider>
   );
