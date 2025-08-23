@@ -27,8 +27,10 @@ export function useServiceWorkerUpdater() {
     if (waitingWorker) {
       waitingWorker.postMessage({ type: "SKIP_WAITING" });
       waitingWorker.addEventListener("statechange", (e) => {
+        console.log({ e });
         if (e.target.state === "activated") {
           window.location.reload();
+          setWaitingWorker(null);
         }
       });
     }
