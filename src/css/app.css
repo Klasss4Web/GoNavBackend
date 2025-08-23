@@ -308,7 +308,7 @@ ion-button.button-big {
   align-items: center;
 
   justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .bus-details {

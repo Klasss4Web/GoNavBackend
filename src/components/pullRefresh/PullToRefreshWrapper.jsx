@@ -9,13 +9,13 @@ export default function PullToRefreshWrapper({ children }) {
     const container = containerRef.current;
 
     const onTouchStart = (e) => {
-      if (container.scrollTop === 0) {
-        setStartY(e.touches[0].clientY);
+      if (container?.scrollTop === 0) {
+        setStartY(e?.touches?.[0]?.clientY);
       }
     };
 
     const onTouchMove = (e) => {
-      if (startY && e.touches[0].clientY - startY > 60) {
+      if (startY && e?.touches?.[0]?.clientY - startY > 60) {
         setPulling(true);
       }
     };
