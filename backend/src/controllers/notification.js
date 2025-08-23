@@ -47,6 +47,8 @@ export const sendPushNotification = async (req, res) => {
       title: "Alert 🔔",
       body: "Bus Notification Test!",
       url: "/",
+      vibrate: [200, 100, 200],
+      requireInteraction: true,
     }
   );
   const { routeCode } = req.body;

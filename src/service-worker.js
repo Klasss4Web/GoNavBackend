@@ -49,6 +49,8 @@ self.addEventListener("push", (event) => {
       icon: "/icons/android-chrome-192x192.png",
       badge: "/icons/favicon-16x16.png",
       data: data.url || "/",
+      vibrate: [200, 100, 200],
+      requireInteraction: true,
       // image:
       //   "https://res.cloudinary.com/emy-commerce/image/upload/v1755855235/android-chrome-192x192_fhn8hd.png",
     })
