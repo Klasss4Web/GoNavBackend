@@ -8,6 +8,7 @@ const customIconUrl = "/assets/img/mark.png";
 const busStopUrl = "/assets/img/BusStop.png";
 const officeUrl = "/assets/img/office.png";
 import { useGlobalContext } from "../context/globalContext";
+import { compareTime } from "../utils/compareTime";
 
 const gpsTopic = "location/yaba";
 export const useMqttGps = () => {
@@ -41,9 +42,8 @@ export const useBusStops = () => {
       .then((res) => res.json())
       .then((data) => {
         const allRoutes =
-          selectedTracker.destination?.toLowerCase() === "interswitch"
-            ? data
-            : [...data].reverse();
+          // selectedTracker.destination?.toLowerCase() === "interswitch"
+          compareTime === "monring" ? data : [...data].reverse();
         setBusStopsMap(allRoutes);
         console.log("Fetched route:", selectedTracker.routeName);
       })

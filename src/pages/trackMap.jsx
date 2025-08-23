@@ -42,9 +42,9 @@ const TrackMap = () => {
       routeCode: selectedTracker?.routeCode,
     };
 
-    if (gpsData.busStopFlag && gpsData.busstopName !== "non") {
+    if (gpsData?.busStopFlag && gpsData?.busstopName !== "non") {
       triggerPushNotification(payload);
-      setLastBusStop(gpsData.busstopName);
+      setLastBusStop(gpsData?.busstopName);
       setSelectedTracker((prev) => ({
         ...prev,
         busSpeed: gpsData?.speed,
@@ -53,7 +53,7 @@ const TrackMap = () => {
     }
 
     // reset lastBusStop when flag goes false (so it can fire again next time)
-    if (!gpsData.busStopFlag) {
+    if (!gpsData?.busStopFlag) {
       setLastBusStop(null);
     }
   }, [gpsData]);
@@ -74,9 +74,6 @@ const TrackMap = () => {
           justifyContent: "space-between",
         }}
       >
-        <div className="compass-icon">
-          <img src="/icons/compass.png" alt="" width="40" height="40" />
-        </div>
         <motion.div
           whileTap={{ scale: 0.9 }}
           transition={{
