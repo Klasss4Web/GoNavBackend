@@ -27,6 +27,16 @@ workbox.routing.registerRoute(
   })
 );
 
+self.addEventListener("install", (event) => {
+  console.log("SW installed");
+  self.skipWaiting(); // optional, forces immediate activation
+});
+
+self.addEventListener("activate", (event) => {
+  console.log("SW activated!");
+  event.waitUntil(clients.claim()); // ensures the page is controlled immediately
+});
+
 // ✅ Push Notifications
 self.addEventListener("push", (event) => {
   console.log("Push event received:", event);
@@ -55,6 +65,25 @@ self.addEventListener("push", (event) => {
       //   "https://res.cloudinary.com/emy-commerce/image/upload/v1755855235/android-chrome-192x192_fhn8hd.png",
     })
   );
+
+  event.waitUntil(
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({
+            type: "CUSTOM_POPUP",
+            payload: data, // send payload to React
+          });
+        });
+      })
+  );
+});
+
+console.log("SW installed/activated");
+
+self.addEventListener("activate", (event) => {
+  console.log("SW activated!");
 });
 
 // ✅ Click handler

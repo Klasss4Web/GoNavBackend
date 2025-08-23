@@ -6,11 +6,9 @@ import store from "./js/store";
 import routes from "./js/routes";
 import capacitorApp from "./js/capacitor-app";
 import { GlobalProvider } from "./context/globalContext";
-import { pushNotificationSubscribeUser } from "./utils/pushNotification";
+import { NotificationToast } from "./components/toasts/notificationtoast";
 
 const MyApp = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const device = getDevice();
 
   const f7params = {
@@ -23,7 +21,7 @@ const MyApp = () => {
         ? {
             path: "/service-worker.js",
           }
-        : {},
+        : { path: "/service-worker.js" },
     input: {
       scrollIntoViewOnFocus: device.capacitor,
       scrollIntoViewCentered: device.capacitor,
@@ -77,14 +75,45 @@ const MyApp = () => {
     }
   }, []);
 
-  const publicVapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
-  console.log({ publicVapidKey, VITE: import.meta.env.VITE_VAPID_PUBLIC_KEY });
+  const [customPopData, setCustomPopupData] = useState({
+    showPopup: false,
+    data: {},
+  });
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      const handler = async (event) => {
+        console.log("Message from SW:", event.data);
+        if (event.data?.type === "CUSTOM_POPUP") {
+          setCustomPopupData((prev) => ({
+            ...prev,
+            showPopup: true,
+            data: event.data.payload,
+          }));
+        }
+      };
+      navigator.serviceWorker.addEventListener("message", handler);
+
+      return () => {
+        navigator.serviceWorker.removeEventListener("message", handler);
+      };
+    }
+  }, []);
 
   return (
     // <GpsProvider>
     <GlobalProvider>
       <App {...f7params}>
         <View main className="safe-areas" url="/" />
+        <NotificationToast
+          show={customPopData?.showPopup}
+          onClose={() =>
+            setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
+          }
+          title={customPopData?.data?.title}
+          message={customPopData?.data?.body}
+          icon="/icons/favicon-16x16.png" // put this in public folder
+        />
       </App>
     </GlobalProvider>
   );
