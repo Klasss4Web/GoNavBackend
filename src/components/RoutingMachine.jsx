@@ -4,12 +4,19 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import "lrm-graphhopper";
 
+const routeStyles = [
+  { color: "black", opacity: 0.5, weight: 10 },
+  { color: "white", opacity: 1, weight: 6 },
+  { color: "blue", opacity: 1, weight: 4 },
+];
+
 export default function RoutingMachine({
   lat1,
   lon1,
   lat2,
   lon2,
   onRouteFound,
+  styles = routeStyles,
 }) {
   const map = useMap();
 
@@ -20,11 +27,7 @@ export default function RoutingMachine({
       waypoints: [L.latLng(lat1, lon1), L.latLng(lat2, lon2)],
       router: new L.Routing.GraphHopper("2c4f062b-4df5-4a4d-84af-253c44c99aaf"),
       lineOptions: {
-        styles: [
-          { color: "black", opacity: 0.5, weight: 10 },
-          { color: "white", opacity: 1, weight: 6 },
-          { color: "blue", opacity: 1, weight: 4 },
-        ],
+        styles: styles,
       },
       show: false,
       addWaypoints: false,
