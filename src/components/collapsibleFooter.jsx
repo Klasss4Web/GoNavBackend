@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Gauge, Icon,Button,Popup } from "framework7-react";
+import { Gauge, Icon, Button, Popup } from "framework7-react";
 import { useMqttGps } from "../js/mapComponent";
 import "../css/app.css";
 import { getTimeToNextStop } from "../utils/busStopDistance";
 import { useGlobalContext } from "../context/globalContext";
+import { useBluetooth } from "../hooks/useBluetooth";
 const maxSpeed = 240;
 
 const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
   const { selectedTracker } = useGlobalContext();
-
+  const { device, requestDevice, readBatteryLevel, error } = useBluetooth();
   const [isOpen, setIsOpen] = useState(false);
   const [speed, setSpeed] = useState(newSpeed || 0);
   const [speedPercent, setSpeedPercent] = useState(0);
@@ -91,7 +92,10 @@ const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
         >
           <div className="align-horizontally">
             <div className="grid grid-cols-3 ">
-              <div className="small-block align-vertically" style={{ justifyContent: "flex-end" }}>
+              <div
+                className="small-block align-vertically"
+                style={{ justifyContent: "flex-end" }}
+              >
                 <div style={{ width: "60%", height: "60%", marginTop: "2%" }}>
                   <Gauge
                     type="semicircle"
@@ -107,7 +111,10 @@ const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
                 </div>
                 <span style={{ color: "gray" }}>Speed Km/hr</span>
               </div>
-              <div className="small-block align-vertically" style={{ justifyContent: "flex-end" }}>
+              <div
+                className="small-block align-vertically"
+                style={{ justifyContent: "flex-end" }}
+              >
                 <div className="align-horizontally-space">
                   <Icon material="transfer_within_a_station"></Icon>
 
@@ -145,7 +152,10 @@ const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
                 </span>
               </div>
 
-              <div className="small-block align-vertically" style={{justifyContent:"flex-end"}}>
+              <div
+                className="small-block align-vertically"
+                style={{ justifyContent: "flex-end" }}
+              >
                 <span> {nextStop || selectedTracker?.busStopName}</span>
 
                 <span style={{ color: "gray", fontSize: "0.8rem" }}>
@@ -160,47 +170,46 @@ const SwipeableFooter = ({ newSpeed, totalStop, nextStop }) => {
             style={{ position: "absolute", top: "80px" }}
           >
             <div className="grid grid-cols-3">
-              <div className="small-block align-vertically" style={{ justifyContent: "center" }}>
-
- 
-
- <motion.div
-          whileTap={{ translateY: 2.9 }}
-          transition={{
-            type: "spring",
-            stiffness: 500,
-            damping: 10,
-            bounce: 0.5,
-          }}
-          className="align-horizontally"
-        >
-          <Button
-            round
-            style={{
-              background: "black",
-              width: "50px",
-              height: "50px",
-              border: "2px solid white",
-              display: "inline-flex", // makes it behave like a flex container
-              alignItems: "center", // vertically centers the icon
-              justifyContent: "center",
-              padding: "0",
-              borderRadius: "50%",
-            }}
-            // href="/route-page/"
-            // routerDirection="back"
-            color="white"
-          >
-            <Icon material="bluetooth" size={30}></Icon>
-          </Button>
-        </motion.div>
-
-
+              <div
+                className="small-block align-vertically"
+                style={{ justifyContent: "center" }}
+              >
+                <motion.div
+                  whileTap={{ translateY: 2.9 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 10,
+                    bounce: 0.5,
+                  }}
+                  className="align-horizontally"
+                >
+                  <Button
+                    round
+                    style={{
+                      background: "black",
+                      width: "50px",
+                      height: "50px",
+                      border: "2px solid white",
+                      display: "inline-flex", // makes it behave like a flex container
+                      alignItems: "center", // vertically centers the icon
+                      justifyContent: "center",
+                      padding: "0",
+                      borderRadius: "50%",
+                    }}
+                    onClick={requestDevice}
+                    // href="/route-page/"
+                    // routerDirection="back"
+                    color="white"
+                  >
+                    <Icon material="bluetooth" size={30}></Icon>
+                  </Button>
+                </motion.div>
               </div>
               <div className="small-block">
                 <div className="arrow-box bus-plate align-vertically">
-                 <span>{selectedTracker?.busType}</span>
-                   <span>{selectedTracker?.plateNumber}</span>
+                  <span>{selectedTracker?.busType}</span>
+                  <span>{selectedTracker?.plateNumber}</span>
                 </div>
               </div>
               <div className="small-block">

@@ -123,7 +123,6 @@ const MapComponent = ({ gpsLocation, busStops }) => {
 
       <ZoomControl position="bottomleft" />
       <LayersControl position="bottomright">
-
         <LayersControl.BaseLayer checked name="OpenStreetMap">
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -187,7 +186,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
         </Marker>
       ))}
 
-      {position && (
+      {position?.lat && (
         <>
           <RoutineMachine
             // key={key}
@@ -218,15 +217,12 @@ const MapComponent = ({ gpsLocation, busStops }) => {
 
 export default MapComponent;
 
+// const response = await fetch(
+//     `${BASE_URL}/push-notification/send-notification`,
+//     {
+//       method: "POST",
+//       body: JSON.stringify(payload),
+//       headers: { "Content-Type": "application/json" },
+//     }
 
-
-  // const response = await fetch(
-  //     `${BASE_URL}/push-notification/send-notification`,
-  //     {
-  //       method: "POST",
-  //       body: JSON.stringify(payload),
-  //       headers: { "Content-Type": "application/json" },
-  //     }
-
-
-  //     https://gonavbackend.onrender.com/api/v1/push-notification/send-notification
+//     https://gonavbackend.onrender.com/api/v1/push-notification/send-notification

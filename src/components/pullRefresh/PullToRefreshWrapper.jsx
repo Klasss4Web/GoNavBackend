@@ -22,7 +22,7 @@ export default function PullToRefreshWrapper({ children }) {
 
     const onTouchEnd = () => {
       if (pulling) {
-        window.location.reload(); // refresh PWA
+        window.location.reload();
       }
       setPulling(false);
       setStartY(0);

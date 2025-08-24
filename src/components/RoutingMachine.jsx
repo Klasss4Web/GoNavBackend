@@ -25,7 +25,10 @@ export default function RoutingMachine({
 
     const routingControl = L.Routing.control({
       waypoints: [L.latLng(lat1, lon1), L.latLng(lat2, lon2)],
-      router: new L.Routing.GraphHopper("2c4f062b-4df5-4a4d-84af-253c44c99aaf"),
+      // router: new L.Routing.GraphHopper("2c4f062b-4df5-4a4d-84af-253c44c99aaf"),
+      router: new L.Routing.OSRMv1({
+        serviceUrl: "https://router.project-osrm.org/route/v1", // Free OSRM server
+      }),
       lineOptions: {
         styles: styles,
       },

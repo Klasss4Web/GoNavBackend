@@ -27,7 +27,7 @@ export const useMapControls = () => {
         console.log("Retrying with low accuracy...");
         navigator.geolocation.getCurrentPosition(success, console.error, {
           enableHighAccuracy: false,
-          timeout: 15000,
+          timeout: 20000,
           maximumAge: 10000,
         });
       }
