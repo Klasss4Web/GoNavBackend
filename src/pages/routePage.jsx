@@ -24,8 +24,6 @@ const RoutePage = () => {
       r?.destination?.toLowerCase()?.includes(searchTerm.toLowerCase())
   );
 
-  console.log({ route });
-
   return (
     <Page>
       <div className="route-content">
