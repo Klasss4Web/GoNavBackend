@@ -50,15 +50,24 @@ export default function SplashScreen({ onLoaded }) {
       className={`splash-screen ${fadeOut ? "fade-out" : ""}`}
       style={{ backgroundColor: bgColor }}
     >
-      <div className="splash-content">
+      <div className="splash-content align-vertically">
         <img
           src="/icons/android-chrome-192x192.png"
           alt="App Logo"
           className="logo"
         />
-        <h1 className="title" style={{ color: themeColor }}>
+<img
+  src="../assets/img/gonav.png"
+  alt="App Logo"
+  style={{
+    width: "30%",
+    height: "auto",
+    mixBlendMode: "overlay", // or multiply, overlay, etc.
+  }}
+/>
+        {/* <h1 className="title" style={{ color: themeColor }}>
           GoNav
-        </h1>
+        </h1> */}
         <div className="spinner" style={{ borderTopColor: themeColor }}></div>
       </div>
     </div>

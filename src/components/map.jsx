@@ -123,16 +123,16 @@ const MapComponent = ({ gpsLocation, busStops }) => {
 
       <ZoomControl position="bottomleft" />
       <LayersControl position="bottomright">
-        <LayersControl.BaseLayer checked name="Satellite">
+
+        <LayersControl.BaseLayer checked name="OpenStreetMap">
           <TileLayer
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution={commonAttribution}
           />
         </LayersControl.BaseLayer>
-
-        <LayersControl.BaseLayer name="OpenStreetMap">
+        <LayersControl.BaseLayer name="Satellite">
           <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
             attribution={commonAttribution}
           />
         </LayersControl.BaseLayer>
@@ -217,3 +217,16 @@ const MapComponent = ({ gpsLocation, busStops }) => {
 };
 
 export default MapComponent;
+
+
+
+  // const response = await fetch(
+  //     `${BASE_URL}/push-notification/send-notification`,
+  //     {
+  //       method: "POST",
+  //       body: JSON.stringify(payload),
+  //       headers: { "Content-Type": "application/json" },
+  //     }
+
+
+  //     https://gonavbackend.onrender.com/api/v1/push-notification/send-notification

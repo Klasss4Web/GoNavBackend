@@ -41,9 +41,10 @@ export const useBusStops = () => {
     fetch(`https://obiot.duckdns.org/GoNav/route/${routeFile}`)
       .then((res) => res.json())
       .then((data) => {
+        const transformData = data.filter((stop) => stop.latitude && stop.longitude);
         const allRoutes =
           // selectedTracker.destination?.toLowerCase() === "interswitch"
-          compareTime === "monring" ? data : [...data].reverse();
+          compareTime === "monring" ? transformData : [...transformData].reverse();
         setBusStopsMap(allRoutes);
         console.log("Fetched route:", selectedTracker.routeName);
       })
