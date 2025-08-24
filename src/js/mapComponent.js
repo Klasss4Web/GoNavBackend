@@ -10,9 +10,12 @@ const officeUrl = "/assets/img/office.png";
 import { useGlobalContext } from "../context/globalContext";
 import { compareTime } from "../utils/compareTime";
 
-const gpsTopic = "location/yaba";
+const gpsTopic = "location/";
+
 export const useMqttGps = () => {
-  const gpsData = useMqttSubscription(gpsTopic);
+    const { selectedTracker } = useGlobalContext();
+  const gpsData = useMqttSubscription(`${gpsTopic}${selectedTracker?.routeName}`);
+  console.log("GPS Data:", gpsData);
   return { gpsData };
 };
 
@@ -104,6 +107,13 @@ export const officeIcon = new L.Icon({
   iconAnchor: [19, 38],
   popupAnchor: [0, -38],
 });
+
+
+
+
+
+
+
 
 export const busStopsMap = [
   {
