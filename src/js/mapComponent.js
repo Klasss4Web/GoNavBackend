@@ -83,6 +83,13 @@ export const customIcon = new L.Icon({
   popupAnchor: [8, -50],
 });
 
+export const personIcon = L.divIcon({
+  html: '<div style="font-size:40px; line-height:40px;">🧍</div>',
+  className: "person-icon",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32], // center bottom
+});
+
 export const bustopIcon = new L.Icon({
   iconUrl: busStopUrl,
   iconSize: [30, 30],

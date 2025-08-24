@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 
 export const useMapControls = () => {
   const [heading, setHeading] = useState(0);
+  const [position, setPosition] = useState(null); // ✅ store lat/lng
 
   useEffect(() => {
     let watchId;
 
     const success = (pos) => {
-      const { heading } = pos.coords;
+      const { latitude, longitude, heading } = pos.coords;
+
+      // ✅ Save position
+      setPosition({ lat: latitude, lng: longitude });
+
+      // ✅ Save heading if available
       if (heading !== null) {
         setHeading(heading);
       }
@@ -41,5 +47,5 @@ export const useMapControls = () => {
     };
   }, []);
 
-  return { heading };
+  return { heading, position };
 };

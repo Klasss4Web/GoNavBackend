@@ -23,6 +23,7 @@ import {
   customIcon,
   bustopIcon,
   officeIcon,
+  personIcon,
 } from "../js/mapComponent";
 import "leaflet/dist/leaflet.css";
 import "../css/leaflet-routing-machine.css";
@@ -52,7 +53,9 @@ const defaultCurrentLocation = [6.428334, 3.429]; // Interswitch coords
 
 const MapComponent = ({ gpsLocation, busStops }) => {
   const { selectedTracker } = useGlobalContext();
-  const { heading } = useMapControls();
+  const { heading, position } = useMapControls();
+
+  console.log({ position });
   // destructure prop
   const [currentLocation, setCurrentLocation] = useState(
     gpsLocation || defaultCurrentLocation
@@ -184,7 +187,31 @@ const MapComponent = ({ gpsLocation, busStops }) => {
         </Marker>
       ))}
 
-      <CompassControl heading={heading} />
+      {position && (
+        <>
+          <RoutineMachine
+            // key={key}
+
+            lat1={position?.lat}
+            lon1={position?.lng}
+            lat2={busStops?.at(0)?.latitude}
+            lon2={busStops?.at(0)?.longitude}
+            styles={[
+              { color: "red", weight: 6, opacity: 0.8 },
+              { color: "white", weight: 2, opacity: 1 },
+            ]}
+          />
+          <Marker position={[position?.lat, position?.lng]} icon={personIcon}>
+            <div className="relative">
+              <Popup>
+                <span className="map-tooltip">{"Your Position"}</span>
+              </Popup>
+            </div>
+          </Marker>
+        </>
+      )}
+
+      {/* <CompassControl heading={heading} /> */}
     </MapContainer>
   );
 };

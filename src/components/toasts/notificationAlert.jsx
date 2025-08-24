@@ -61,7 +61,7 @@ export const NotificationAlert = ({ show, onClose, title, message, icon }) => {
 
   return (
     <div
-      className={`toast ${visible ? "show" : ""}`}
+      className={`notif-toast ${visible ? "show" : ""}`}
       ref={toastRef}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
