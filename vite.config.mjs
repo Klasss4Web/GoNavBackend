@@ -23,9 +23,7 @@ export default async () => {
         "@": SRC_DIR,
       },
     },
-    // server: {
-    //   host: true,
-    // },
+
     server: {
       host: true,
       historyApiFallback: true,

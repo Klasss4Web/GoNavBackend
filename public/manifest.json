@@ -9,7 +9,7 @@
   "scope": "/",
   "orientation": "any",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#131936",
   "theme_color": "#2563eb",
   "icons": [
     {
@@ -108,14 +108,14 @@
       "name": "Bus Routes",
       "short_name": "Routes",
       "description": "Search all routes",
-      "url": "/route-page/",
+      "url": "/route-page",
       "icons": [{ "src": "/icons/favicon-96-96.png", "sizes": "96x96" }]
     },
     {
       "name": "Track Ride",
       "short_name": "Tracker",
       "description": "Track your ride",
-      "url": "/track-map/",
+      "url": "/track-map",
       "icons": [{ "src": "/icons/favicon-96-96.png", "sizes": "96x96" }]
     }
   ],

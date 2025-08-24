@@ -8,11 +8,11 @@ var routes = [
     component: LandingPage,
   },
   {
-    path: "/route-page/",
+    path: "/route-page",
     component: RoutePage,
   },
   {
-    path: "/track-map/",
+    path: "/track-map",
     component: TrackMap,
   },
 ];

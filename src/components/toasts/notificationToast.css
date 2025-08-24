@@ -1,7 +1,7 @@
 .toast {
   position: fixed;
   top: 20px;
-  left: 50%;
+  left: 100%;
   transform: translateX(-50%) translateY(-120%);
   width: calc(100% - 40px);
   max-width: 350px;
@@ -21,6 +21,7 @@
 }
 
 .toast.show {
+  left: 5%;
   transform: translateX(5%) translateY(0);
   opacity: 1;
 }

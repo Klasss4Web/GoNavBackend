@@ -55,9 +55,9 @@
   font-size: 1.2rem;
 }
 
-.leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
+/* .leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
   display: none;
-}
+} */
 
 .map-header {
   /* 

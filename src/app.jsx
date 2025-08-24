@@ -105,21 +105,21 @@ const MyApp = () => {
   return (
     // <GpsProvider>
     <GlobalProvider>
-      {/* <PullToRefreshWrapper> */}
-      <App {...f7params}>
-        <View main className="safe-areas" url="/" />
-        <NotificationAlert
-          show={customPopData.showPopup}
-          onClose={() =>
-            setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
-          }
-          title={customPopData?.data?.title}
-          message={customPopData?.data?.body}
-          icon="/icons/apple-touch-icon.png" // put this in public folder
-        />
-        <SWUpdaterToast />
-      </App>
-      {/* </PullToRefreshWrapper> */}
+      <PullToRefreshWrapper>
+        <App {...f7params}>
+          <View main className="safe-areas" url="/" />
+          <NotificationAlert
+            show={customPopData.showPopup}
+            onClose={() =>
+              setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
+            }
+            title={customPopData?.data?.title}
+            message={customPopData?.data?.body}
+            icon="/icons/apple-touch-icon.png"
+          />
+          <SWUpdaterToast />
+        </App>
+      </PullToRefreshWrapper>
     </GlobalProvider>
   );
 };
