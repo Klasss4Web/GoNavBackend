@@ -14,7 +14,7 @@ const LandingPage = () => {
           style={{ marginTop: "0%" }}
           className="align-vertically"
         >
-          <img src="../assets/img/gonav.png" alt="App Logo" className="logo" />
+          <img src="../assets/img/gonav.png" alt="App Logo" style={{ height: "18%", width: "auto", opacity: "90%" }} />
 
           <motion.div
             initial={{ opacity: 0, y: 70 }}
