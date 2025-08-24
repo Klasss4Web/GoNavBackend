@@ -9,9 +9,11 @@ import { GlobalProvider } from "./context/globalContext";
 import { NotificationAlert } from "./components/toasts/notificationAlert";
 import SWUpdaterToast from "./components/toasts/swUpdateToast";
 import PullToRefreshWrapper from "./components/pullRefresh/PullToRefreshWrapper";
+import SplashScreen from "./components/splashScreens/dynamicSplashScreen";
 
 const MyApp = () => {
   const device = getDevice();
+  const [showSplash, setShowSplash] = useState(true);
 
   const f7params = {
     name: "GoNavApp",
@@ -106,19 +108,25 @@ const MyApp = () => {
     // <GpsProvider>
     <GlobalProvider>
       {/* <PullToRefreshWrapper> */}
-      <App {...f7params}>
-        <View main className="safe-areas" url="/" />
-        <NotificationAlert
-          show={customPopData.showPopup}
-          onClose={() =>
-            setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
-          }
-          title={customPopData?.data?.title}
-          message={customPopData?.data?.body}
-          icon="/icons/apple-touch-icon.png"
-        />
-        <SWUpdaterToast />
-      </App>
+      {showSplash ? (
+        <SplashScreen onLoaded={() => setShowSplash(false)} />
+      ) : (
+        <App {...f7params}>
+          <View main className="safe-areas" url="/" />
+
+          <NotificationAlert
+            show={customPopData.showPopup}
+            onClose={() =>
+              setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
+            }
+            title={customPopData?.data?.title}
+            message={customPopData?.data?.body}
+            icon="/icons/apple-touch-icon.png"
+          />
+
+          <SWUpdaterToast />
+        </App>
+      )}
       {/* </PullToRefreshWrapper> */}
     </GlobalProvider>
   );
