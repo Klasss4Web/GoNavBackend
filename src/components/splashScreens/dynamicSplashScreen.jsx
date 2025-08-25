@@ -1,6 +1,7 @@
 // src/components/SplashScreen.jsx
 import { useEffect, useState } from "react";
 import "./splashScreen.css";
+import { Spinner } from "../spinner/spinner";
 
 export default function SplashScreen({ onLoaded }) {
   const [fadeOut, setFadeOut] = useState(false);
@@ -56,19 +57,16 @@ export default function SplashScreen({ onLoaded }) {
           alt="App Logo"
           className="logo"
         />
-<img
-  src="../assets/img/gonav.png"
-  alt="App Logo"
-  style={{
-    width: "30%",
-    height: "auto",
-    mixBlendMode: "overlay", // or multiply, overlay, etc.
-  }}
-/>
-        {/* <h1 className="title" style={{ color: themeColor }}>
-          GoNav
-        </h1> */}
-        <div className="spinner" style={{ borderTopColor: themeColor }}></div>
+        <img
+          src="../assets/img/gonav.png"
+          alt="App Logo"
+          style={{
+            width: "30%",
+            height: "auto",
+            mixBlendMode: "overlay", // or multiply, overlay, etc.
+          }}
+        />
+        <Spinner themeColor={themeColor} />
       </div>
     </div>
   );

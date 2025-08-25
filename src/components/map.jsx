@@ -38,6 +38,7 @@ import { useMapControls } from "../hooks/useMapControls";
 import { RotateMap } from "./map/RotateMap";
 import { CompassControl } from "./map/MapCompassControl";
 import { useGlobalContext } from "../context/globalContext";
+import { BUS_INFO_CONSTANTS } from "../constants/busInfoConstants";
 
 // import { useGps } from '../context/globalContext.jsx'; // adjust path
 
@@ -55,11 +56,17 @@ const MapComponent = ({ gpsLocation, busStops }) => {
   const { selectedTracker } = useGlobalContext();
   const { heading, position } = useMapControls();
 
-  console.log({ position });
-  // destructure prop
   const [currentLocation, setCurrentLocation] = useState(
     gpsLocation || defaultCurrentLocation
   );
+
+  const tripDetails = JSON.parse(
+    sessionStorage.getItem(BUS_INFO_CONSTANTS.ACTIVE_BUS_STORAGE)
+  );
+  const nextBusStop =
+    selectedTracker?.getNextBustStop || tripDetails?.getNextBustStop;
+
+  const stopsLeft = selectedTracker?.stopsLeft || tripDetails?.stopsLeft;
   // const { gpsData } =  useMqttGps();
   const markerRef = useRef(null);
 
@@ -81,24 +88,13 @@ const MapComponent = ({ gpsLocation, busStops }) => {
       if (step >= steps) clearInterval(interval);
     }, 50); // adjust speed (50ms per step)
 
+    console.log("Animating to GPS location:", gpsLocation);
+
     return () => clearInterval(interval);
   }, [gpsLocation]);
 
   const commonAttribution =
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | ';
-  // '&copy; <a href="https://www.stadiamaps.com/">Stadia Maps</a> | ' +
-  // '&copy; <a href="https://www.stamen.com/">Stamen Design</a> | ' +
-  // '&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> | ' +
-  // 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>';
-
-  // // Update state when GPS data changes
-  // useEffect(() => {
-  //   if (gpsData) {
-  //     // setCurrentLocation(gpsData.currentLocation);
-  //     console.log("GPS data received: yes oooo", gpsData);
-  //   setCurrentLocation([Number(gpsData.lat), Number(gpsData.lon)]);
-  //   }
-  // }, [gpsData]);
 
   return (
     <MapContainer
@@ -153,22 +149,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
 
       <Marker ref={markerRef} position={currentLocation}>
         <Popup>
-          Heading to{" "}
-          {getNextStop(
-            {
-              latitude: currentLocation[0],
-              longitude: currentLocation[1],
-            },
-            busStops
-          )?.name
-            ? getNextStop(
-                {
-                  latitude: currentLocation[0],
-                  longitude: currentLocation[1],
-                },
-                busStops
-              )?.name
-            : selectedTracker?.busStopName}
+          Heading to {nextBusStop ? nextBusStop : selectedTracker?.busStopName}
         </Popup>
       </Marker>
       {/* Markers for Bus Stops */}
@@ -176,7 +157,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
         <Marker
           key={index}
           position={[stop.latitude, stop.longitude]}
-          icon={index == busStops.length - 1 ? officeIcon : bustopIcon}
+          icon={stop.name === "InterSwitch VI" ? officeIcon : bustopIcon}
         >
           <div className="relative">
             <Popup>

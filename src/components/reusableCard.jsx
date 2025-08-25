@@ -7,6 +7,8 @@ import { navigate } from "../utils/f7Utils";
 import { useMqttSubscription } from "../js/mqttClient";
 import { useGlobalContext } from "../context/globalContext";
 import { pushNotificationSubscribeUser } from "../utils/pushNotification";
+import { useState } from "react";
+import { Spinner } from "./spinner/spinner";
 
 const TransportCard = ({
   routeName,
@@ -19,10 +21,17 @@ const TransportCard = ({
   plateNumber,
   busType = "Bus",
 }) => {
-  const message = useMqttSubscription(`GoNaV/status/${trackerId}`);
+  const topic = `GoNaV/status/${trackerId}`;
+  const messages = useMqttSubscription(topic);
+  // Access the payload for this topic
+  const message = messages[topic];
   const status = message?.status === "online";
+
+  // console.log("Status message:", messages, status);
   const { setSelectedTracker } = useGlobalContext();
-  const handleClick = () => {
+  const [loadingSubscription, setLoadingSubscription] = useState(false);
+  const handleClick = async () => {
+    setLoadingSubscription(true);
     const selected = {
       routeName,
       trackerId,
@@ -31,8 +40,11 @@ const TransportCard = ({
       plateNumber,
       destination,
     };
+
     setSelectedTracker(selected); // ✅ store globally
-    pushNotificationSubscribeUser(routeCode);
+    localStorage.setItem("selectedTracker", JSON.stringify(selected));
+    await pushNotificationSubscribeUser(routeCode, setLoadingSubscription);
+
     navigate("/track-map/");
   };
 
@@ -45,8 +57,17 @@ const TransportCard = ({
           boxShadow: "0 4px 8px rgba(3, 18, 68, 0.64)",
           background: "white",
           width: "100%",
+          position: "relative",
         }}
       >
+        {loadingSubscription && (
+          <div style={{ position: "absolute", right: "30%", top: "20px" }}>
+            <small style={{ color: "green", fontStyle: "italic" }}>
+              Hold on...
+            </small>
+            <Spinner themeColor="green" />
+          </div>
+        )}
         <Link noLinkClass routerDirection="forward" onClick={handleClick}>
           {/* <Block style={{ padding: '1%', borderRadius:"55px" }}> */}
           <div

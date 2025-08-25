@@ -6,7 +6,7 @@ import { BASE_URL } from "../service/endPointConstants";
 const publicVapidKey =
   "BGniIxi9J8sN2MMP1MvPVxSaRW6qnSGrUutrZJkZwXXTFJJ5vuF5--Jk79ZOY3fvecuzP5h4HjXe0l3L-EsgwYw";
 
-export async function pushNotificationSubscribeUser(routeCode) {
+export async function pushNotificationSubscribeUser(routeCode, setLoading) {
   console.log({ publicVapidKey });
   if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
     alert("❌ Push not supported in this browser.");
@@ -41,6 +41,9 @@ export async function pushNotificationSubscribeUser(routeCode) {
       console.log(`Push notification sent successfully: ${response}`);
     } catch (error) {
       console.log(`Error sending push notification ${error}`);
+      alert("Error sending push notification, please try again");
+    } finally {
+      setLoading(false);
     }
   }
 }

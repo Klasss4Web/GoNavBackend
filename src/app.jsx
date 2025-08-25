@@ -10,6 +10,7 @@ import { NotificationAlert } from "./components/toasts/notificationAlert";
 import SWUpdaterToast from "./components/toasts/swUpdateToast";
 import PullToRefreshWrapper from "./components/pullRefresh/PullToRefreshWrapper";
 import SplashScreen from "./components/splashScreens/dynamicSplashScreen";
+import { ErrorBoundary } from "./components/errorBoundary";
 
 const MyApp = () => {
   const device = getDevice();
@@ -107,27 +108,27 @@ const MyApp = () => {
   return (
     // <GpsProvider>
     <GlobalProvider>
-      {/* <PullToRefreshWrapper> */}
       {showSplash ? (
         <SplashScreen onLoaded={() => setShowSplash(false)} />
       ) : (
-        <App {...f7params}>
-          <View main className="safe-areas" url="/" />
+        <ErrorBoundary>
+          <App {...f7params}>
+            <View main className="safe-areas" url="/" />
 
-          <NotificationAlert
-            show={customPopData.showPopup}
-            onClose={() =>
-              setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
-            }
-            title={customPopData?.data?.title}
-            message={customPopData?.data?.body}
-            icon="/icons/apple-touch-icon.png"
-          />
+            <NotificationAlert
+              show={customPopData.showPopup}
+              onClose={() =>
+                setCustomPopupData((prev) => ({ ...prev, showPopup: false }))
+              }
+              title={customPopData?.data?.title}
+              message={customPopData?.data?.body}
+              icon="/icons/apple-touch-icon.png"
+            />
 
-          <SWUpdaterToast />
-        </App>
+            <SWUpdaterToast />
+          </App>
+        </ErrorBoundary>
       )}
-      {/* </PullToRefreshWrapper> */}
     </GlobalProvider>
   );
 };
