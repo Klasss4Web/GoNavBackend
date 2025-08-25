@@ -1,0 +1,46 @@
+.bluetooth-popup {
+    width: 100% !important;
+    /* max-width: 100% !important; */
+    /* height: auto !important; */
+    /* max-height: 100% !important; */
+    /* background-image: linear-gradient(135deg, #0f0f0fda 0%, #302f31f6 100%); */
+    /* --background: none; */
+    /* Remove Ionic default background */
+    /* background: url("/assets/img/connectionImage.jpg") no-repeat center center / cover; */
+    /* background-color: rgba(247, 244, 244, 0.998); */
+    /* height: 100%; */
+    /* width: 100%; */
+    /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; */
+  background:none;
+    border-top: 1px solid white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.bluetooth-overlay {
+    height: 100%;
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(7, 7, 7, 0.89);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    /* .bluetooth-popup .page {
+    padding: 15px;
+  } */
+}
+
+@media screen and (min-width: 769px) {
+    /* .bluetooth-popup .page {
+    padding: 30px;
+    width: 500px;
+    margin: auto;
+  } */
+}

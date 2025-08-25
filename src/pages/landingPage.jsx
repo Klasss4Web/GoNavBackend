@@ -1,11 +1,22 @@
 import { Page, Icon, Link } from "framework7-react";
 import { motion } from "framer-motion";
+import { useGlobalContext } from "../context/globalContext.jsx"; // use context if you want reactive updates
+import { isSelectedTrackerValid } from "../js/mapComponent";
 import "../css/app.css";
 import "../css/landingPage.css";
 
 const LandingPage = () => {
+  const { selectedTracker } = useGlobalContext();
+
+  // Check if tracker exists in context or LocalStorage
+  const hasTracker = selectedTracker || isSelectedTrackerValid();
+
+  // Dynamic text and href
+  const linkText = hasTracker ? "Start Tracking" : "Select Route";
+  const linkHref = hasTracker ? "/track-map/" : "/route-page/";
+
   return (
-    <Page name="langingPage" className="landing-content">
+    <Page name="landingPage" className="landing-content">
       <div className="overlay">
         <motion.div
           initial={{ opacity: 0, y: 70 }}
@@ -14,7 +25,11 @@ const LandingPage = () => {
           style={{ marginTop: "0%" }}
           className="align-vertically"
         >
-          <img src="../assets/img/gonav.png" alt="App Logo" style={{ height: "18%", width: "auto", opacity: "90%" }} />
+          <img
+            src="../assets/img/gonav.png"
+            alt="App Logo"
+            style={{ height: "18%", width: "auto", opacity: "90%" }}
+          />
 
           <motion.div
             initial={{ opacity: 0, y: 70 }}
@@ -29,16 +44,14 @@ const LandingPage = () => {
             <Link
               animate={true}
               ignoreCache={true}
-              //  onClick={goToRoutePage}
               style={{
                 padding: "10px",
                 background: "#FFF",
                 borderRadius: "10px",
               }}
-              href="/route-page/"
+              href={linkHref} // dynamically choose target page
             >
-              {/* Animated arrow */}
-              <h2 style={{ margin: 0 }}>Select Route</h2>
+              <h2 style={{ margin: 0 }}>{linkText}</h2> {/* dynamic text */}
               <motion.div
                 initial={{ x: 0 }}
                 animate={{ x: [0, 5, 0] }}
@@ -62,4 +75,5 @@ const LandingPage = () => {
     </Page>
   );
 };
+
 export default LandingPage;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Page, Icon, Link } from "framework7-react";
+import { Page, Icon, Link, f7, Button } from "framework7-react";
 
 import "../css/map.css";
 import MapComponent from "../components/map.jsx";
@@ -10,25 +10,113 @@ import { useGlobalContext } from "../context/globalContext.jsx";
 import SwipeableFooter from "../components/collapsibleFooter.jsx";
 import { getNextStop } from "../utils/busStopDistance.js";
 import { triggerPushNotification } from "../service/notification.js";
+import { connectToMqtt, useMqttSubscription } from "../js/mqttClient";
+const gpsTopic = "location/";
 
-const TrackMap = () => {
-  const { selectedTracker, setSelectedTracker } = useGlobalContext();
+
+
+
+const TrackMap = (props) => {
+    const { selectedTracker, setSelectedTracker,mqttClient, isConnected } = useGlobalContext();
+
   const [currentLocation, setCurrentLocation] = useState(0);
-  const { gpsData } = useMqttGps();
+
+const topic = selectedTracker?.routeName ? `${gpsTopic}${selectedTracker.routeName}` : null;
+
+  // Get all messages from the hook
+  
+  const messages = useMqttSubscription(topic);
+  const gpsData = topic ? messages[topic] : null;
+
+
   const [speed, setSpeed] = useState(0);
   const [deviceId, setDeviceId] = useState(0);
   const busStopsMap = useBusStops();
   const [lastBusStop, setLastBusStop] = useState(null);
 
-  console.log({ busStopsMap, gpsData }); // Call the hook
+  console.log("gpsData", gpsData, topic); // Call the hook
   const status = true;
+  const { f7router } = props;
+
+
+
+
+
+ useEffect(() => {
+    if (!mqttClient || !isConnected || !topic) return;
+
+    const ensureSubscribed = () => {
+      mqttClient.subscribe(topic, { qos: 0 }, (err, granted) => {
+        if (err) {
+          console.error(`❌ Re-subscribe failed for ${topic}:`, err);
+        } else {
+          console.log(`🔁 Re-subscribed to topic: ${topic}`);
+        }
+      });
+    };
+
+
+    // You can re-subscribe on page mount or periodically (optional)
+    const checkInterval = setInterval(() => {
+      ensureSubscribed();
+    }, 10000); // Every 10 seconds
+
+    // Also try once on load
+    ensureSubscribed();
+
+    return () => clearInterval(checkInterval); // Cleanup
+  }, [mqttClient, isConnected, topic]);
+
+
+
+  const openConfirm = () => {
+    if (!selectedTracker) {
+      // f7.dialog.alert("No tracker selected.");
+      f7router.navigate("/route-page/", { routerDirection: "back" });
+      // return;
+    }
+
+    f7.dialog.confirm(
+      `Unsubscribe from ${selectedTracker.routeName} Route?`,
+      () => {
+        // ✅ OK pressed
+        // Clear from global context
+        setSelectedTracker(null);
+
+        // Clear from LocalStorage
+        localStorage.removeItem("selectedTracker");
+
+        // Optional: Unsubscribe MQTT
+        // mqttClient.unsubscribe(`location/${selectedTracker.routeName}`);
+
+        f7.dialog.alert("Unsubscribed successfully!", () => {
+          // Redirect to route-page after alert is closed
+          f7router.navigate("/route-page/", { routerDirection: "back" });
+        });
+      },
+      () => {
+        // ❌ Cancel pressed
+        f7.dialog.alert("Action canceled");
+      }
+    );
+  };
+
+
+
+
+
+
+
   useEffect(() => {
     if (gpsData && typeof gpsData.speed !== "undefined") {
+      console.log("i am working");
       setSpeed(gpsData.speed);
       setCurrentLocation([Number(gpsData.lat), Number(gpsData.lon)]);
       setDeviceId(gpsData.id);
-      console.log("speed is " + gpsData.speed);
+      // console.log("speed is " + gpsData.speed);
     }
+
+
     // const timeToNextBusStop = getTimeToNextStop(
     //   { lat: 6.428334, lng: 3.429 },
     //   busStopsMap,
@@ -84,7 +172,7 @@ const TrackMap = () => {
           }}
           className="align-horizontally"
         >
-          <Link
+          <Button
             round
             style={{
               background: "black",
@@ -97,12 +185,13 @@ const TrackMap = () => {
               padding: "0",
               borderRadius: "50%",
             }}
-            href="/route-page/"
-            routerDirection="back"
+            // href="/route-page/"
+            // routerDirection="back"
+            onClick={openConfirm}
             color="white"
           >
             <Icon material="chevron_left" size={35}></Icon>
-          </Link>
+          </Button>
         </motion.div>
 
         <div

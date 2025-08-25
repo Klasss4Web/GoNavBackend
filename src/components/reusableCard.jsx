@@ -19,8 +19,14 @@ const TransportCard = ({
   plateNumber,
   busType = "Bus",
 }) => {
-  const message = useMqttSubscription(`GoNaV/status/${trackerId}`);
-  const status = message?.status === "online";
+  
+const topic = `GoNaV/status/${trackerId}`;
+const messages = useMqttSubscription(topic);
+// Access the payload for this topic
+const message = messages[topic];
+const status = message?.status === "online";
+
+  console.log("Status message:", messages, status);
   const { setSelectedTracker } = useGlobalContext();
   const handleClick = () => {
     const selected = {
@@ -31,8 +37,12 @@ const TransportCard = ({
       plateNumber,
       destination,
     };
+
     setSelectedTracker(selected); // ✅ store globally
+     localStorage.setItem('selectedTracker', JSON.stringify(selected));
     pushNotificationSubscribeUser(routeCode);
+
+    
     navigate("/track-map/");
   };
 

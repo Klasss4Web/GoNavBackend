@@ -55,7 +55,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
   const { selectedTracker } = useGlobalContext();
   const { heading, position } = useMapControls();
 
-  console.log({ position });
+  // console.log({ position });
   // destructure prop
   const [currentLocation, setCurrentLocation] = useState(
     gpsLocation || defaultCurrentLocation
@@ -80,6 +80,8 @@ const MapComponent = ({ gpsLocation, busStops }) => {
       setCurrentLocation([lat1 + latStep * step, lng1 + lngStep * step]);
       if (step >= steps) clearInterval(interval);
     }, 50); // adjust speed (50ms per step)
+
+    console.log("Animating to GPS location:", gpsLocation);
 
     return () => clearInterval(interval);
   }, [gpsLocation]);
@@ -152,7 +154,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
         </LayersControl.BaseLayer>
       </LayersControl>
 
-      <Marker ref={markerRef} position={currentLocation}>
+      <Marker ref={markerRef} position={currentLocation} >
         <Popup>
           Heading to{" "}
           {getNextStop(
@@ -177,7 +179,7 @@ const MapComponent = ({ gpsLocation, busStops }) => {
         <Marker
           key={index}
           position={[stop.latitude, stop.longitude]}
-          icon={index == busStops.length - 1 ? officeIcon : bustopIcon}
+         icon={stop.name === "InterSwitch VI" ? officeIcon : bustopIcon}
         >
           <div className="relative">
             <Popup>
