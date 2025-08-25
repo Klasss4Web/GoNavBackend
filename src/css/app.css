@@ -6,6 +6,9 @@
   box-sizing: border-box;
 }
 
+#app {
+  background-color: #0c2a5d;
+}
 :root {
   /* Success Colors - Sweet Greens & Nature Tones */
   --success-emerald: #10b981;
